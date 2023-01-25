@@ -3,7 +3,7 @@
  * Plugin Name:       WP Book A Car
  * Plugin URI:        https://github.com/rayhanrahman25/book-a-car
  * Description:       Book A Car Is A WordPress Plugin, Using This Plugin You Can Create Car Booking Website Your Won
- * Version:           0.0.5
+ * Version:           0.0.1
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author:            Rayhan Rahman
