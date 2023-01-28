@@ -26,5 +26,6 @@
 
  // Required Files
  require_once WPBAC_PATH . 'includes/'. WPBAC_FILE_PRFX .'main.php';
+ new wpbac_Main_Class();
 
 
