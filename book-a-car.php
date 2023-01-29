@@ -14,6 +14,7 @@
  * Domain Path:       /languages
  */
 
+
  define('WPBAC_PATH', plugin_dir_path(__FILE__));
  define('WPBAC_ASSETS', plugins_url('/assets/', __FILE__));
  define('WPBAC_LANG', plugins_url('/languages/', __FILE__));
