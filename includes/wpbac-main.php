@@ -17,6 +17,7 @@ if ( !defined( 'ABSPATH' ) ) {
         $this->wpbac_version = WPBAC_VERSION;
         $this->wpbac_load_dependencies();
         $this->wpbac_trigger_admin_hooks();
+        $this->wpbac_trigger_public_hooks();
         $this->wpbac_install_tables();
     }
     
@@ -28,12 +29,19 @@ if ( !defined( 'ABSPATH' ) ) {
 
     private function wpbac_load_dependencies(){
       require_once WPBAC_PATH . 'admin/'. WPBAC_FILE_PRFX .'admin.php';
+      require_once WPBAC_PATH . 'public/'. WPBAC_FILE_PRFX .'public.php';
     }
 
     private function wpbac_trigger_admin_hooks(){ 
-      $wpbac_admin = new wpbac_admin($this->wpbac_version);
+      $wpbac_admin = new Wpbac_admin($this->wpbac_version);
       add_action( 'admin_menu', array( $wpbac_admin,  WPBAC_PRFX . 'admin_menu' ) );
       add_action( 'admin_enqueue_scripts', array($wpbac_admin , WPBAC_PRFX . 'admin_assets' ));
+    }
+
+    private function wpbac_trigger_public_hooks(){
+      $wpbac_public = new Wpbac_public($this->wpbac_version);
+      add_action('wp_enqueue_scripts', array($wpbac_public,  WPBAC_PRFX . 'public_assets' ));
+      add_shortcode( 'wpbac_booking_page', array( $wpbac_public, 'wpbac_load_shortcode_view' ) );
     }
    
     private function wpbac_install_tables(){

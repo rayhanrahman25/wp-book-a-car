@@ -55,6 +55,17 @@ class Wpbac_admin{
             'wpbac-all-bookings',
             array( $this, WPBAC_PRFX . 'all_bookings' )
         );
+
+        add_submenu_page(
+            'wpbac-admin-settings',
+            __( 'Settings',WPBAC_TXT_DOMAIN ),
+            __( 'Settings',WPBAC_TXT_DOMAIN ),
+            'manage_options',
+            'wpbac-admin-settings-fields',
+            array( $this, WPBAC_PRFX . 'settings' )
+        );
+
+
         
     }
 
@@ -64,5 +75,9 @@ class Wpbac_admin{
 
     function wpbac_all_bookings(){
         require_once WPBAC_PATH . 'admin/view/'. WPBAC_FILE_PRFX .'booking-lists.php';
+    }
+
+    function wpbac_settings(){
+      echo "HELLO WELCOME TO ADMIN SETTINGS";
     }
 }
