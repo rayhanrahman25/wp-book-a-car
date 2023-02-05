@@ -14,14 +14,12 @@ class Wpbac_admin{
     private $wpbac_version;
     private $wpbac_admin_settings_fields;
     private $wpbac_section_name;
-    private $wpbac_admin_section_callback;
 
     public function __construct( $version )
     {
        $this->wpbac_version = $version;
        $this->wpbac_admin_settings_fields = 'wpbac_admin_settings_fields';
        $this->wpbac_section_name = 'wpbac_admin_settings_seciton';
-       $this->wpbac_admin_section_callback ='wpbac_admin_setion_callback';
     }
 
     public function wpbac_admin_assets(){
@@ -83,14 +81,15 @@ class Wpbac_admin{
         require_once WPBAC_PATH . 'admin/view/'. WPBAC_FILE_PRFX .'booking-lists.php';
     }
 
+
     function wpbac_settings(){
         ?>
         <div class="wrap">
         <h2>My Awesome Settings Page</h2>
         <form method="post" action="options.php">
             <?php
-                settings_fields( $this->wpbac_admin_settings_fields );
-                do_settings_sections( $this->wpbac_admin_settings_fields );
+                settings_fields('wpbac_admin_optios');
+                do_settings_sections( 'wpbac_admin_optios' );
                 submit_button();
             ?>
         </form>
@@ -99,15 +98,21 @@ class Wpbac_admin{
     }
 
     public function wpbac_setup_sections() {
-        add_settings_section( $this->wpbac_section_name, 'My First Section Title',  $this->wpbac_admin_section_callback , $this->wpbac_admin_settings_fields );
+        add_settings_section( $this->wpbac_section_name , false , array($this, 'wpbac_admin_settings_callback') , 'wpbac_admin_optios' );
+    }
+
+    public function wpbac_admin_settings_callback($arguments){
+        
     }
 
     public function wpbac_setup_fields(){
-        add_settings_field( 'wpbac_form_title_field', 'Form Title', array( $this,  WPBAC_PRFX . 'field_callback' ), $this->wpbac_admin_settings_fields, $this->wpbac_section_name );
+        add_settings_field( 'wpbac_form_title', 'Form Title', array( $this,  WPBAC_PRFX . 'field_callback' ), 'wpbac_admin_optios' , $this->wpbac_section_name );
+        register_setting( 'wpbac_admin_optios', 'wpbac_form_title' );
     }
 
     public function wpbac_field_callback( $args){
-        echo '<input name="our_first_field" id="our_first_field" type="text" value="' . get_option( 'our_first_field' ) . '" />';
+        echo '<input name="wpbac_form_title" id="wpbac_form_title" type="text" value="' . get_option( 'wpbac_form_title' ) . '" />';
+        
     }
 
 
