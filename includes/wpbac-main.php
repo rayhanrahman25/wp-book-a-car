@@ -35,7 +35,9 @@ if ( !defined( 'ABSPATH' ) ) {
     private function wpbac_trigger_admin_hooks(){ 
       $wpbac_admin = new Wpbac_admin($this->wpbac_version);
       add_action( 'admin_menu', array( $wpbac_admin,  WPBAC_PRFX . 'admin_menu' ) );
-      add_action( 'admin_enqueue_scripts', array($wpbac_admin , WPBAC_PRFX . 'admin_assets' ));
+      add_action( 'admin_enqueue_scripts', array( $wpbac_admin , WPBAC_PRFX . 'admin_assets' ));
+      add_action( 'admin_init', array( $wpbac_admin, WPBAC_PRFX . 'setup_sections' ) );
+      add_action( 'admin_init', array( $wpbac_admin, WPBAC_PRFX . 'setup_fields' ) );
     }
 
     private function wpbac_trigger_public_hooks(){
