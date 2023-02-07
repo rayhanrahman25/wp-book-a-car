@@ -24,7 +24,7 @@ class Wpbac_admin{
 
     public function wpbac_admin_assets(){
         $wpbac_admin_page = $_GET['page'] ?? '';
-        $wpbac_plugin_pages = array('wpbac-all-bookings', 'wpbac-admin-settings');
+        $wpbac_plugin_pages = array('wpbac-all-bookings', 'wpbac-admin-settings', 'wpbac-admin-settings-fields');
         if( !in_array($wpbac_admin_page, $wpbac_plugin_pages) ){
             return;
         }
@@ -85,11 +85,11 @@ class Wpbac_admin{
     function wpbac_settings(){
         ?>
         <div class="wrap">
-        <h2>My Awesome Settings Page</h2>
+        <h2><?php echo __('Settings', WPBAC_TXT_DOMAIN); ?></h2>
         <form method="post" action="options.php">
             <?php
-                settings_fields('wpbac_admin_optios');
-                do_settings_sections( 'wpbac_admin_optios' );
+                settings_fields('wpbac_admin_options');
+                do_settings_sections( 'wpbac_admin_options' );
                 submit_button();
             ?>
         </form>
@@ -98,7 +98,7 @@ class Wpbac_admin{
     }
 
     public function wpbac_setup_sections() {
-        add_settings_section( $this->wpbac_section_name , false , array($this, 'wpbac_admin_settings_callback') , 'wpbac_admin_optios' );
+        add_settings_section( $this->wpbac_section_name , false , array($this, 'wpbac_admin_settings_callback') , 'wpbac_admin_options' );
     }
 
     public function wpbac_admin_settings_callback($arguments){
@@ -106,13 +106,53 @@ class Wpbac_admin{
     }
 
     public function wpbac_setup_fields(){
-        add_settings_field( 'wpbac_form_title', 'Form Title', array( $this,  WPBAC_PRFX . 'field_callback' ), 'wpbac_admin_optios' , $this->wpbac_section_name );
-        register_setting( 'wpbac_admin_optios', 'wpbac_form_title' );
+        $wpbac_settings_fields = array(
+            array(
+                'id' => 'wpbac_form_title',
+                'label' => 'Form Title',
+                'section' => $this->wpbac_section_name,
+                'type' => 'text',
+                'options' => false,
+                'placeholder' => __('Enter Your Form Title', WPBAC_TXT_DOMAIN),
+                'default' => __('Book A Car', WPBAC_TXT_DOMAIN),
+            ),
+            array(
+                'id' => 'wpbac_form_background_image',
+                'label' => 'Upload Background Image',
+                'section' => $this->wpbac_section_name,
+                'type' => 'hidden',
+                'options' => false,
+                'default' => 'http://localhost/liter/wp-content/uploads/2023/02/wallpaperflare.com_wallpaper.jpg',
+            ),
+
+        );
+
+        foreach( $wpbac_settings_fields as $wpbac_settings_field ){
+            add_settings_field( $wpbac_settings_field['id'], $wpbac_settings_field['label'], array( $this, WPBAC_PRFX . 'field_callback' ), 'wpbac_admin_options', $wpbac_settings_field['section'], $wpbac_settings_field );
+            register_setting( 'wpbac_admin_options', $wpbac_settings_field['id'] );
+        }
+
     }
 
-    public function wpbac_field_callback( $args){
-        echo '<input name="wpbac_form_title" id="wpbac_form_title" type="text" value="' . get_option( 'wpbac_form_title' ) . '" />';
+    public function wpbac_field_callback( $wpbac_settings_args ){
         
+        if( 'text' === $wpbac_settings_args['type'] ){
+            $wpbac_form_title_value = esc_attr(get_option( $wpbac_settings_args['id'] ));
+            if( !$wpbac_form_title_value ){
+                $wpbac_form_title_value =  $wpbac_settings_args['default'];
+            }
+            printf( '<input name="%1$s" id="%1$s" type="%2$s" placeholder="%3$s" value="%4$s" />', $wpbac_settings_args['id'], $wpbac_settings_args['type'], $wpbac_settings_args['placeholder'], $wpbac_form_title_value );
+        }
+
+        if( 'hidden' === $wpbac_settings_args['type'] && 'wpbac_form_background_image'  === $wpbac_settings_args['id']){
+            $wpbac_form_background_image = esc_attr(get_option( $wpbac_settings_args['id'] ));
+            if(!$wpbac_form_background_image){
+                $wpbac_form_background_image =  $wpbac_settings_args['default'];
+            }
+            echo '<img id="show-profile-img" src="'. esc_attr($wpbac_form_background_image) .'" alt="John Wick" width="200" height="200"><br/><br/>';
+            printf( '<input type="%2$s" id="%1$s" name="%1$s" value="3487">',  $wpbac_settings_args['id'], $wpbac_settings_args['type']);
+            echo '<input type="button" id="wpbac_form_upload_image" class="button button-primary" value="Upload Image" />';
+        }
     }
 
 
