@@ -11,9 +11,9 @@ if ( !defined( 'ABSPATH' ) ) {
 require_once WPBAC_PATH . 'admin/view/'. WPBAC_FILE_PRFX .'thank-you.php';
 
 class Wpbac_admin{
-    private $wpbac_version;
-    private $wpbac_admin_settings_fields;
-    private $wpbac_section_name;
+    protected $wpbac_version;
+    protected $wpbac_admin_settings_fields;
+    protected $wpbac_section_name;
 
     public function __construct( $version )
     {
@@ -22,9 +22,9 @@ class Wpbac_admin{
        $this->wpbac_section_name = 'wpbac_admin_settings_seciton';
     }
 
-    public function wpbac_admin_assets(){
+    public function wpbac_admin_styles() {
         $wpbac_admin_page = $_GET['page'] ?? '';
-        $wpbac_plugin_pages = array('wpbac-all-bookings', 'wpbac-admin-settings', 'wpbac-admin-settings-fields');
+        $wpbac_plugin_pages = array('wpbac-all-bookings', 'wpbac-admin-settings', 'wpbac-admin-home');
         if( !in_array($wpbac_admin_page, $wpbac_plugin_pages) ){
             return;
         }
@@ -34,7 +34,14 @@ class Wpbac_admin{
         wp_enqueue_style('wpbac-bootstrp-css');
         wp_enqueue_style('wpbac-admin-css');
         wp_enqueue_style('wpbac-fontawesome-css');
-        
+    }
+
+    public function wpbac_admin_scripts() {
+        $wpbac_admin_page = $_GET['page'] ?? '';
+        $wpbac_plugin_pages = array('wpbac-all-bookings', 'wpbac-admin-settings', 'wpbac-admin-home');
+        if( !in_array($wpbac_admin_page, $wpbac_plugin_pages) ){
+            return;
+        }
         wp_register_script( 'wpbac-main-js', WPBAC_ASSETS . 'admin/js/main.js', array('jquery'), WPBAC_VERSION, true );
         wp_register_script( 'wpbac-bootstrap-js', '//cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js', array(), '1.0.0', true );
         wp_enqueue_script('wpbac-bootstrap-js');
@@ -46,13 +53,13 @@ class Wpbac_admin{
             __( 'WP Book A Car', WPBAC_TXT_DOMAIN ),
             __( 'WP Book A Car', WPBAC_TXT_DOMAIN ),
             'manage_options',
-            'wpbac-admin-settings',
-            array( $this, WPBAC_PRFX . 'admin_settings' ),
+            'wpbac-admin-home',
+            array( $this, WPBAC_PRFX . 'admin_home' ),
             'dashicons-car',
             100
         );
         add_submenu_page(
-            'wpbac-admin-settings',
+            'wpbac-admin-home',
             __( 'All Bookings',WPBAC_TXT_DOMAIN ),
             __( 'All Bookings',WPBAC_TXT_DOMAIN ),
             'manage_options',
@@ -61,11 +68,11 @@ class Wpbac_admin{
         );
 
         add_submenu_page(
-            'wpbac-admin-settings',
+            'wpbac-admin-home',
             __( 'Settings',WPBAC_TXT_DOMAIN ),
             __( 'Settings',WPBAC_TXT_DOMAIN ),
             'manage_options',
-            'wpbac-admin-settings-fields',
+            'wpbac-admin-settings',
             array( $this, WPBAC_PRFX . 'settings' )
         );
 
@@ -73,16 +80,16 @@ class Wpbac_admin{
         
     }
 
-    function wpbac_admin_settings(){
-        require_once WPBAC_PATH . 'admin/view/'. WPBAC_FILE_PRFX .'admin-settings.php';
+    function wpbac_admin_home() {
+        require_once WPBAC_PATH . 'admin/view/'. WPBAC_FILE_PRFX .'admin-home.php';
     }
 
-    function wpbac_all_bookings(){
+    function wpbac_all_bookings() {
         require_once WPBAC_PATH . 'admin/view/'. WPBAC_FILE_PRFX .'booking-lists.php';
     }
 
 
-    function wpbac_settings(){
+    function wpbac_settings() {
         ?>
         <div class="wrap">
         <h2><?php echo __('Settings', WPBAC_TXT_DOMAIN); ?></h2>
@@ -97,15 +104,11 @@ class Wpbac_admin{
     <?php
     }
 
-    public function wpbac_setup_sections() {
-        add_settings_section( $this->wpbac_section_name , false , array($this, 'wpbac_admin_settings_callback') , 'wpbac_admin_options' );
+    public function wpbac_admin_sections() {
+        add_settings_section( $this->wpbac_section_name , false , null , 'wpbac_admin_options' );
     }
 
-    public function wpbac_admin_settings_callback($arguments){
-        
-    }
-
-    public function wpbac_setup_fields(){
+    public function wpbac_admin_fields() {
         $wpbac_settings_fields = array(
             array(
                 'id' => 'wpbac_form_title',
@@ -134,7 +137,7 @@ class Wpbac_admin{
 
     }
 
-    public function wpbac_field_callback( $wpbac_settings_args ){
+    public function wpbac_field_callback( $wpbac_settings_args ) {
         
         if( 'text' === $wpbac_settings_args['type'] ){
             $wpbac_form_title_value = esc_attr(get_option( $wpbac_settings_args['id'] ));
@@ -149,9 +152,9 @@ class Wpbac_admin{
             if(!$wpbac_form_background_image){
                 $wpbac_form_background_image =  $wpbac_settings_args['default'];
             }
-            echo '<img id="show-profile-img" src="'. esc_attr($wpbac_form_background_image) .'" alt="John Wick" width="200" height="200"><br/><br/>';
-            printf( '<input type="%2$s" id="%1$s" name="%1$s" value="3487">',  $wpbac_settings_args['id'], $wpbac_settings_args['type']);
-            echo '<input type="button" id="wpbac_form_upload_image" class="button button-primary" value="Upload Image" />';
+            echo '<img class="show-profile-img" src="'. esc_attr($wpbac_form_background_image) .'" alt="John Wick"><br/><br/>';
+            printf( '<input type="%2$s" id="%1$s" name="%1$s" value="%3$s">',  $wpbac_settings_args['id'], $wpbac_settings_args['type'], $wpbac_form_background_image);
+            echo '<input type="button" class="button button-primary wpbac-form-upload-image" value="Upload Image" />';
         }
     }
 

@@ -1,6 +1,5 @@
-  
-  let wpbacCopyShortcode = document.querySelector("#wpbac-shortcode-btn");
-  let wpbacUploadImage = document.querySelector("#wpbac_form_upload_image");
+  let wpbacCopyShortcode = document.querySelector(".wpbac-shortcode-btn");
+  let wpbacUploadImage = document.querySelector(".wpbac-form-upload-image");
   
   if(wpbacCopyShortcode){
     wpbacCopyShortcode.addEventListener("click", function() {
@@ -25,7 +24,7 @@
         .on('select', function(e) {
           let wpbacGetImage = frame.state().get('selection').first().toJSON();
           let wpbacGetUrl = wpbacGetImage.url;
-          let wpbacPrintImage = document.querySelector('#show-profile-img');
+          let wpbacPrintImage = document.querySelector('.show-profile-img');
           let wpbacSetInputVal = document.querySelector('input[name="wpbac_form_background_image"]');
           wpbacPrintImage.src = wpbacGetUrl;
           wpbacSetInputVal.setAttribute('value', wpbacGetUrl);

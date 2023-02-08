@@ -1,4 +1,4 @@
-<table>
+<table class="wpbac-booking-list">
   <tr>
     <th>Name</th>
     <th>Email</th>

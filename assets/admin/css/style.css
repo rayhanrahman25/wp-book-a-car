@@ -6,14 +6,19 @@ table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
-  }
+}
+
+img{
+  width: auto;
+  height: 150px;
+}
   
-  /* td, th {
+ .wpbac-booking-list td, .wpbac-booking-list th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
   }
   
-  tr:nth-child(even) {
+  .wpbac-booking-list tr:nth-child(even) {
     background-color: #dddddd;
-  } */
+  }
