@@ -1,33 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-	<title>Booking Form HTML Template</title>
-
-	<!-- Google font -->
-	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-
-	<!-- Bootstrap -->
-	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
-
-	<!-- Custom stlylesheet -->
-	<link type="text/css" rel="stylesheet" href="css/style.css" />
-
-</head>
-
-<body>
-	<div id="booking" class="section">
+	<div id="booking" class="section"  style="background-image:url(<?php echo esc_attr(get_option( 'wpbac_form_background_image', '#' )); ?>);">
 		<div class="section-center">
 			<div class="container">
 				<div class="row">
 					<div class="booking-form">
 						<div class="form-header">
-							<h1>Book a car</h1>
+							<h1><?php echo esc_html(get_option( 'wpbac_form_title', 'Book A Car' )); ?></h1>
 						</div>
 						<form>
 							<div class="row">
@@ -118,7 +96,7 @@
 								</div>
 							</div>
 							<div class="form-btn">
-								<button class="submit-btn">Book Now</button>
+								<button class="wpbac-submit-book">Book Now</button>
 							</div>
 						</form>
 					</div>
@@ -126,6 +104,3 @@
 			</div>
 		</div>
 	</div>
-</body>
-
-</html>

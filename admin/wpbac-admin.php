@@ -75,8 +75,6 @@ class Wpbac_admin{
             'wpbac-admin-settings',
             array( $this, WPBAC_PRFX . 'settings' )
         );
-
-
         
     }
 
@@ -87,7 +85,6 @@ class Wpbac_admin{
     function wpbac_all_bookings() {
         require_once WPBAC_PATH . 'admin/view/'. WPBAC_FILE_PRFX .'booking-lists.php';
     }
-
 
     function wpbac_settings() {
         ?>
@@ -108,7 +105,7 @@ class Wpbac_admin{
         add_settings_section( $this->wpbac_section_name , false , null , 'wpbac_admin_options' );
     }
 
-    public function wpbac_admin_fields() {
+    public function wpbac_admin_settings_fields() {
         $wpbac_settings_fields = array(
             array(
                 'id' => 'wpbac_form_title',
@@ -116,7 +113,6 @@ class Wpbac_admin{
                 'section' => $this->wpbac_section_name,
                 'type' => 'text',
                 'options' => false,
-                'placeholder' => __('Enter Your Form Title', WPBAC_TXT_DOMAIN),
                 'default' => __('Book A Car', WPBAC_TXT_DOMAIN),
             ),
             array(
@@ -125,39 +121,39 @@ class Wpbac_admin{
                 'section' => $this->wpbac_section_name,
                 'type' => 'hidden',
                 'options' => false,
-                'default' => 'http://localhost/liter/wp-content/uploads/2023/02/wallpaperflare.com_wallpaper.jpg',
+                'default' => WPBAC_ASSETS . 'images/background.jpg',
             ),
 
         );
 
         foreach( $wpbac_settings_fields as $wpbac_settings_field ){
-            add_settings_field( $wpbac_settings_field['id'], $wpbac_settings_field['label'], array( $this, WPBAC_PRFX . 'field_callback' ), 'wpbac_admin_options', $wpbac_settings_field['section'], $wpbac_settings_field );
+            add_settings_field( $wpbac_settings_field['id'], $wpbac_settings_field['label'], array( $this, WPBAC_PRFX . 'settings_callback' ), 'wpbac_admin_options', $wpbac_settings_field['section'], $wpbac_settings_field );
             register_setting( 'wpbac_admin_options', $wpbac_settings_field['id'] );
         }
 
     }
 
-    public function wpbac_field_callback( $wpbac_settings_args ) {
+    public function wpbac_settings_callback( $wpbac_settings_args ) {
         
-        if( 'text' === $wpbac_settings_args['type'] ){
+        if( 'wpbac_form_title' === $wpbac_settings_args['id'] ){
             $wpbac_form_title_value = esc_attr(get_option( $wpbac_settings_args['id'] ));
             if( !$wpbac_form_title_value ){
                 $wpbac_form_title_value =  $wpbac_settings_args['default'];
             }
-            printf( '<input name="%1$s" id="%1$s" type="%2$s" placeholder="%3$s" value="%4$s" />', $wpbac_settings_args['id'], $wpbac_settings_args['type'], $wpbac_settings_args['placeholder'], $wpbac_form_title_value );
+            printf( '<input name="%1$s" id="%1$s" type="%2$s" placeholder="%3$s" value="%4$s" />', esc_attr($wpbac_settings_args['id']), esc_attr($wpbac_settings_args['type']), esc_attr($wpbac_settings_args['placeholder']), esc_attr($wpbac_form_title_value));
         }
 
-        if( 'hidden' === $wpbac_settings_args['type'] && 'wpbac_form_background_image'  === $wpbac_settings_args['id']){
+        if( 'wpbac_form_background_image'  === $wpbac_settings_args['id'] ){
             $wpbac_form_background_image = esc_attr(get_option( $wpbac_settings_args['id'] ));
             if(!$wpbac_form_background_image){
                 $wpbac_form_background_image =  $wpbac_settings_args['default'];
             }
-            echo '<img class="show-profile-img" src="'. esc_attr($wpbac_form_background_image) .'" alt="John Wick"><br/><br/>';
-            printf( '<input type="%2$s" id="%1$s" name="%1$s" value="%3$s">',  $wpbac_settings_args['id'], $wpbac_settings_args['type'], $wpbac_form_background_image);
-            echo '<input type="button" class="button button-primary wpbac-form-upload-image" value="Upload Image" />';
+            printf('<img class="show-profile-img" src="%s"><br/><br/>', esc_attr($wpbac_form_background_image));
+            printf( '<input type="%2$s" id="%1$s" name="%1$s" value="%3$s">',  esc_attr($wpbac_settings_args['id']), esc_attr($wpbac_settings_args['type']), esc_attr($wpbac_form_background_image));
+            ?>
+            <input type="button" class="button button-primary wpbac-form-upload-image" value="Upload Image" />
+            <?php
         }
     }
-
-
 
 }
