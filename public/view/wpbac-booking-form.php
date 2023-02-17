@@ -12,33 +12,33 @@
 								<div class="col-sm-6">
 									<div class="form-group">
 										<span class="form-label">Name</span>
-										<input class="form-control" type="text" placeholder="Enter your name">
+										<input class="form-control wpbac-book-name" type="text" placeholder="Enter your name">
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
 										<span class="form-label">Email</span>
-										<input class="form-control" type="email" placeholder="Enter your email">
+										<input class="form-control wpbac-book-email" type="email" placeholder="Enter your email">
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
 								<span class="form-label">Phone</span>
-								<input class="form-control" type="tel" placeholder="Enter your phone number">
+								<input class="form-control wpbac-book-phone" type="tel" placeholder="Enter your phone number">
 							</div>
 							<div class="form-group">
 								<span class="form-label">Pickup Location</span>
-								<input class="form-control" type="text" placeholder="Enter ZIP/Location">
+								<input class="form-control wpbac-book-pickup" type="text" placeholder="Enter ZIP/Location">
 							</div>
 							<div class="form-group">
 								<span class="form-label">Destination</span>
-								<input class="form-control" type="text" placeholder="Enter ZIP/Location">
+								<input class="form-control wpbac-book-destination" type="text" placeholder="Enter ZIP/Location">
 							</div>
 							<div class="row">
 								<div class="col-sm-5">
 									<div class="form-group">
 										<span class="form-label">Pickup Date</span>
-										<input class="form-control" type="date" required>
+										<input class="form-control wpbac-book-pickupdate" type="date" required>
 									</div>
 								</div>
 								<div class="col-sm-7">
@@ -46,7 +46,7 @@
 										<div class="col-sm-4">
 											<div class="form-group">
 												<span class="form-label">Hour</span>
-												<select class="form-control">
+												<select class="form-control wpbac-book-hour">
 													<option>1</option>
 													<option>2</option>
 													<option>3</option>
@@ -66,7 +66,7 @@
 										<div class="col-sm-4">
 											<div class="form-group">
 												<span class="form-label">Min</span>
-												<select class="form-control">
+												<select class="form-control wpbac-book-min">
 													<option>05</option>
 													<option>10</option>
 													<option>15</option>
@@ -85,7 +85,7 @@
 										<div class="col-sm-4">
 											<div class="form-group">
 												<span class="form-label">AM/PM</span>
-												<select class="form-control">
+												<select class="form-control wpbac-book-ap">
 													<option>AM</option>
 													<option>PM</option>
 												</select>
@@ -97,6 +97,9 @@
 							</div>
 							<div class="form-btn">
 								<button class="wpbac-submit-book">Book Now</button>
+							</div>
+							<div class="wpbac-message-wrapper">
+								<span class="wpbac-submit-message"></span>
 							</div>
 						</form>
 					</div>

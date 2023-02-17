@@ -45,6 +45,8 @@ if ( !defined( 'ABSPATH' ) ) {
         $wpbac_public = new Wpbac_public( $this->wpbac_version );
         add_action( 'wp_enqueue_scripts', array( $wpbac_public,  WPBAC_PRFX . 'public_styles' ) );
         add_action( 'wp_enqueue_scripts', array( $wpbac_public,  WPBAC_PRFX . 'public_scripts' ) );
+        add_action( 'wp_ajax_user_booked_data', array( $wpbac_public,  WPBAC_PRFX . 'booked_data' ));
+        add_action( 'wp_ajax_nopriv_user_booked_data', array( $wpbac_public,  WPBAC_PRFX . 'booked_data' ));
         add_shortcode( 'wpbac_booking_page', array( $wpbac_public, 'wpbac_load_shortcode_view' ) );
     }
    

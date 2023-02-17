@@ -36,4 +36,21 @@ class Wpbac_public{
          include WPBAC_PATH . 'public/view/' . WPBAC_FILE_PRFX .'booking-form.php';
     }
 
+    public function wpbac_booked_data(){
+        global $wpdb;
+
+        $wpbac_name = $_POST['wpbac_name'];
+        $wpbac_email = $_POST['wpbac_email'];
+        $wpbac_phone = $_POST['wpbac_phone'];
+        $wpbac_pickup = $_POST['wpbac_pickup'];
+        $wpbac_destination = $_POST['wpbac_destination'];
+        $wpbac_pickup_date = $_POST['wpbac_pickup_date'];
+        $wpbac_hour = $_POST['wpbac_hour'];
+        $wpbac_min = $_POST['wpbac_min'];
+        $wpbac_ap = $_POST['wpbac_ap'];
+        
+        echo strtoupper($wpbac_name);
+
+    }
+
 }

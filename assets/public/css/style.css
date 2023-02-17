@@ -132,3 +132,13 @@
 	border-radius: 3px;
 	text-transform: uppercase;
 }
+
+.wpbac-message-wrapper {
+	text-align: center;
+	padding: 15px 0;
+	display: none;
+}
+
+.wpbac-submit-message {
+	color: #FFFFFF;
+}
