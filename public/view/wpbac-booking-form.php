@@ -5,39 +5,39 @@
 				<div class="row">
 					<div class="booking-form">
 						<div class="form-header">
-							<h1><?php echo esc_html(get_option( 'wpbac_form_title', 'Book A Car' )); ?></h1>
+							<h1><?php echo esc_html(get_option( 'wpbac_form_title', WPBAC_TXT_DOMAIN )); ?></h1>
 						</div>
 						<form>
 							<div class="row">
 								<div class="col-sm-6">
 									<div class="form-group">
-										<span class="form-label">Name</span>
+										<span class="form-label"><?php echo esc_html__('Name', WPBAC_TXT_DOMAIN); ?></span>
 										<input class="form-control wpbac-book-name" type="text" placeholder="Enter your name">
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
-										<span class="form-label">Email</span>
+										<span class="form-label"><?php echo esc_html__('Email', WPBAC_TXT_DOMAIN); ?></span>
 										<input class="form-control wpbac-book-email" type="email" placeholder="Enter your email">
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
-								<span class="form-label">Phone</span>
+								<span class="form-label"><?php echo esc_html__('Phone', WPBAC_TXT_DOMAIN); ?></span>
 								<input class="form-control wpbac-book-phone" type="tel" placeholder="Enter your phone number">
 							</div>
 							<div class="form-group">
-								<span class="form-label">Pickup Location</span>
+								<span class="form-label"><?php echo esc_html__('Pickup Location', WPBAC_TXT_DOMAIN); ?></span>
 								<input class="form-control wpbac-book-pickup" type="text" placeholder="Enter ZIP/Location">
 							</div>
 							<div class="form-group">
-								<span class="form-label">Destination</span>
+								<span class="form-label"><?php echo esc_html__('Destination', WPBAC_TXT_DOMAIN); ?></span>
 								<input class="form-control wpbac-book-destination" type="text" placeholder="Enter ZIP/Location">
 							</div>
 							<div class="row">
 								<div class="col-sm-5">
 									<div class="form-group">
-										<span class="form-label">Pickup Date</span>
+										<span class="form-label"><?php echo esc_html__('Pickup Date', WPBAC_TXT_DOMAIN); ?></span>
 										<input class="form-control wpbac-book-pickupdate" type="date" required>
 									</div>
 								</div>
@@ -45,49 +45,50 @@
 									<div class="row">
 										<div class="col-sm-4">
 											<div class="form-group">
-												<span class="form-label">Hour</span>
+												<span class="form-label"><?php echo esc_html__('Hour', WPBAC_TXT_DOMAIN); ?></span>
 												<select class="form-control wpbac-book-hour">
-													<option>1</option>
-													<option>2</option>
-													<option>3</option>
-													<option>4</option>
-													<option>5</option>
-													<option>6</option>
-													<option>7</option>
-													<option>8</option>
-													<option>9</option>
-													<option>10</option>
-													<option>11</option>
-													<option>12</option>
+													<option><?php echo esc_html__('01', WPBAC_TXT_DOMAIN); ?></option>
+													<option><?php echo esc_html__('02', WPBAC_TXT_DOMAIN); ?></option>
+													<option><?php echo esc_html__('03', WPBAC_TXT_DOMAIN); ?></option>
+													<option><?php echo esc_html__('04', WPBAC_TXT_DOMAIN); ?></option>
+													<option><?php echo esc_html__('05', WPBAC_TXT_DOMAIN); ?></option>
+													<option><?php echo esc_html__('06', WPBAC_TXT_DOMAIN); ?></option>
+													<option><?php echo esc_html__('07', WPBAC_TXT_DOMAIN); ?></option>
+													<option><?php echo esc_html__('08', WPBAC_TXT_DOMAIN); ?></option>
+													<option><?php echo esc_html__('09', WPBAC_TXT_DOMAIN); ?></option>
+													<option><?php echo esc_html__('10', WPBAC_TXT_DOMAIN); ?></option>
+													<option><?php echo esc_html__('11', WPBAC_TXT_DOMAIN); ?></option>
+													<option><?php echo esc_html__('12', WPBAC_TXT_DOMAIN); ?></option>
 												</select>
 												<span class="select-arrow"></span>
 											</div>
 										</div>
 										<div class="col-sm-4">
 											<div class="form-group">
-												<span class="form-label">Min</span>
+												<span class="form-label"><?php echo esc_html__('Min', WPBAC_TXT_DOMAIN); ?></span>
 												<select class="form-control wpbac-book-min">
-													<option>05</option>
-													<option>10</option>
-													<option>15</option>
-													<option>20</option>
-													<option>25</option>
-													<option>30</option>
-													<option>35</option>
-													<option>40</option>
-													<option>45</option>
-													<option>50</option>
-													<option>55</option>
+												<option><?php echo esc_html__('05', WPBAC_TXT_DOMAIN); ?></option>
+												<option><?php echo esc_html__('10', WPBAC_TXT_DOMAIN); ?></option>
+												<option><?php echo esc_html__('15', WPBAC_TXT_DOMAIN); ?></option>
+												<option><?php echo esc_html__('20', WPBAC_TXT_DOMAIN); ?></option>
+												<option><?php echo esc_html__('25', WPBAC_TXT_DOMAIN); ?></option>
+												<option><?php echo esc_html__('30', WPBAC_TXT_DOMAIN); ?></option>
+												<option><?php echo esc_html__('35', WPBAC_TXT_DOMAIN); ?></option>
+												<option><?php echo esc_html__('40', WPBAC_TXT_DOMAIN); ?></option>
+												<option><?php echo esc_html__('45', WPBAC_TXT_DOMAIN); ?></option>
+												<option><?php echo esc_html__('50', WPBAC_TXT_DOMAIN); ?></option>
+												<option><?php echo esc_html__('55', WPBAC_TXT_DOMAIN); ?></option>
+												<option><?php echo esc_html__('00', WPBAC_TXT_DOMAIN); ?></option>
 												</select>
 												<span class="select-arrow"></span>
 											</div>
 										</div>
 										<div class="col-sm-4">
 											<div class="form-group">
-												<span class="form-label">AM/PM</span>
+												<span class="form-label"><?php echo esc_html__('AM/PM', WPBAC_TXT_DOMAIN); ?></span>
 												<select class="form-control wpbac-book-ap">
-													<option>AM</option>
-													<option>PM</option>
+													<option><?php echo esc_html__('AM', WPBAC_TXT_DOMAIN); ?></option>
+													<option><?php echo esc_html__('PM', WPBAC_TXT_DOMAIN); ?></option>
 												</select>
 												<span class="select-arrow"></span>
 											</div>
@@ -96,7 +97,7 @@
 								</div>
 							</div>
 							<div class="form-btn">
-								<button class="wpbac-submit-book">Book Now</button>
+								<button class="wpbac-submit-book"><?php echo esc_html__('Book Now', WPBAC_TXT_DOMAIN); ?></button>
 							</div>
 							<div class="wpbac-message-wrapper">
 								<span class="wpbac-submit-message"></span>

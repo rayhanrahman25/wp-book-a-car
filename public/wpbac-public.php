@@ -39,18 +39,26 @@ class Wpbac_public{
     public function wpbac_booked_data(){
         global $wpdb;
 
-        $wpbac_name = $_POST['wpbac_name'];
-        $wpbac_email = $_POST['wpbac_email'];
-        $wpbac_phone = $_POST['wpbac_phone'];
-        $wpbac_pickup = $_POST['wpbac_pickup'];
-        $wpbac_destination = $_POST['wpbac_destination'];
-        $wpbac_pickup_date = $_POST['wpbac_pickup_date'];
-        $wpbac_hour = $_POST['wpbac_hour'];
-        $wpbac_min = $_POST['wpbac_min'];
-        $wpbac_ap = $_POST['wpbac_ap'];
-        
-        echo strtoupper($wpbac_name);
+        $wpbac_user_data = array(
+            'wpbac_user_name'=> esc_html( $_POST['wpbac_name'] ),
+            'wpbac_user_email'=> esc_html( $_POST['wpbac_email'] ),
+            'wpbac_phone_number'=> esc_html( $_POST['wpbac_phone'] ),
+            'wpbac_pickup_location'=> esc_html( $_POST['wpbac_pickup'] ),
+            'wpbac_destination'=> esc_html( $_POST['wpbac_destination']),
+            'wpbac_pickup_date'=> esc_html( $_POST['wpbac_pickup_date'] ),
+            'wpbac_pickup_hour'=> esc_html( $_POST['wpbac_hour'] ),
+            'wpbac_pickup_min'=> esc_html( $_POST['wpbac_min'] ),
+            'wpbac_am_pm'=> esc_html( $_POST['wpbac_ap'] ),
+        );
 
+        $wpdb->insert( WPBAC_TABLE , $wpbac_user_data );
+         echo $_POST['wpbac_ap'];
+        $wpbac_response = array(
+            'success' => true,
+            'message' => 'Thank you for booking with us!',
+        );
+        wp_send_json( $wpbac_response );  
+        wp_die();
     }
 
 }

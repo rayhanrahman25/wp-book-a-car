@@ -35,12 +35,13 @@ jQuery(document).ready( function($) {
             wpbac_ap : wpbacAP,
          },
          success: function(response) {
-         if(response == "success") {
+         if(response.success) {
             $(".wpbac-message-wrapper").css("display","block");
-            $(".wpbac-submit-message").html("Success");
+            $(".wpbac-submit-message").html(response.message);
          }
          else {
-            alert("Your vote could not be added");
+            $(".wpbac-message-wrapper").css("display","block");
+            $(".wpbac-submit-message").html("Something Went Wrong");
          }
          }
        });

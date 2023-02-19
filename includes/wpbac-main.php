@@ -57,7 +57,7 @@ if ( !defined( 'ABSPATH' ) ) {
         if ( $wpdb->get_var( "SHOW TABLES LIKE '{$table_name}'" ) != $table_name ) {
             //table not in database. Create new table
             $charset_collate = $wpdb->get_charset_collate();
-            $sql = "CREATE TABLE {$table_name} (\r\n\t\t\t\t\twpbac_id INT(11) NOT NULL AUTO_INCREMENT,\r\n\t\t\t\t\twpbac_user_name VARCHAR(255),\r\n\t\t\t\t\twpbac_user_email VARCHAR(55),\r\n\t\t\t\t\twpbac_phone_number VARCHAR(55),\r\n\t\t\t\t\twpbac_pickup_location VARCHAR(255),\r\n\t\t\t\t\twpbac_destination VARCHAR(255),\r\n\t\t\t\t\twpbac_pickup_date DATETIME,\r\n\t\t\t\t\twpbac_pickup_hour INT(2),\r\n\t\t\t\t\twpbac_pickup_min INT(2),\r\n\t\t\t\t\twpbac_am_pm INT(2),\r\n\t\t\t\t\tPRIMARY KEY (`wpbac_id`)\r\n\t\t\t) {$charset_collate};";
+            $sql = "CREATE TABLE {$table_name} (\r\n\t\t\t\t\twpbac_id INT(11) NOT NULL AUTO_INCREMENT,\r\n\t\t\t\t\twpbac_user_name VARCHAR(255),\r\n\t\t\t\t\twpbac_user_email VARCHAR(55),\r\n\t\t\t\t\twpbac_phone_number VARCHAR(55),\r\n\t\t\t\t\twpbac_pickup_location VARCHAR(255),\r\n\t\t\t\t\twpbac_destination VARCHAR(255),\r\n\t\t\t\t\twpbac_pickup_date DATE,\r\n\t\t\t\t\twpbac_pickup_hour INT(2),\r\n\t\t\t\t\twpbac_pickup_min INT(2),\r\n\t\t\t\t\twpbac_am_pm VARCHAR(2),\r\n\t\t\t\t\tPRIMARY KEY (`wpbac_id`)\r\n\t\t\t) {$charset_collate};";
             require_once ABSPATH . 'wp-admin/includes/upgrade.php';
             dbDelta( $sql );
         }
