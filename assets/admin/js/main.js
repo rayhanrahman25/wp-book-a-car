@@ -32,3 +32,47 @@
 
     });
   }
+
+
+  jQuery(document).ready(function($){
+
+    var mediaUploader;
+
+    $('#custom_media_button').click(function(e) {
+        e.preventDefault();
+
+        alert("HELLO");
+
+        // If the media uploader instance exists, reopen it.
+        if ( mediaUploader ) {
+            mediaUploader.open();
+            return;
+        }
+
+        // Create a new media uploader instance
+        mediaUploader = wp.media.frames.file_frame = wp.media({
+            title: 'Select Image',
+            button: {
+                text: 'Select Image'
+            },
+            multiple: false
+        });
+
+        // When a file is selected, grab the URL and set it as the text field's value
+        mediaUploader.on('select', function() {
+            var attachment = mediaUploader.state().get('selection').first().toJSON();
+            $('#term-image').val(attachment.id);
+            $('#term-image-preview').html('<img src="' + attachment.url + '">');
+        });
+
+        // Open the media uploader dialog
+        mediaUploader.open();
+
+    });
+
+    $('#custom_media_remove').click(function() {
+        $('#term-image').val('');
+        $('#term-image-preview').html('');
+    });
+
+});

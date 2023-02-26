@@ -19,6 +19,7 @@ if ( !defined( 'ABSPATH' ) ) {
         $this->wpbac_trigger_admin_hooks();
         $this->wpbac_trigger_public_hooks();
         $this->wpbac_install_tables();
+        
     }
     
     // -- Load Plugin Text Domain
@@ -39,6 +40,12 @@ if ( !defined( 'ABSPATH' ) ) {
         add_action( 'admin_enqueue_scripts', array( $wpbac_admin , WPBAC_PRFX . 'admin_scripts' ) );
         add_action( 'admin_init', array( $wpbac_admin, WPBAC_PRFX . 'admin_sections' ) );
         add_action( 'admin_init', array( $wpbac_admin, WPBAC_PRFX . 'admin_settings_fields' ) );
+        add_action( 'init', array( $wpbac_admin, WPBAC_PRFX . 'admin_cars' ) );
+        add_filter( 'single_template', array( $wpbac_admin, WPBAC_PRFX . 'single_car' ) );
+        add_action( 'wpbac_car_characteristics_add_form_fields', array( $wpbac_admin, WPBAC_PRFX . 'characteristics_image' ) );
+        add_action( 'edited_wpbac_car_characteristics', array( $wpbac_admin, WPBAC_PRFX . 'characteristics_image_save' ) );
+        add_action( 'create_wpbac_car_characteristics', array( $wpbac_admin, WPBAC_PRFX . 'characteristics_image_save' ) );
+        add_filter( 'wpbac_car_characteristics_edit_form_fields', array( $wpbac_admin, WPBAC_PRFX . 'characteristics_edit_taxonomy' ));
     }
 
     private function wpbac_trigger_public_hooks(){

@@ -24,6 +24,11 @@ class Wpbac_public{
         wp_enqueue_style( 'wpbac-public-bootstrp-css' );
         wp_enqueue_style( 'wpbac-public-css' );
 
+        if(is_singular( 'cars' )){
+            wp_enqueue_style( 'wpbac-public-bootstrp-css' );
+            wp_enqueue_style( 'wpbac-public-css' );
+        }
+
     }
 
     public function wpbac_public_scripts(){
