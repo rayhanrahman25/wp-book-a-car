@@ -24,8 +24,10 @@ class Wpbac_admin{
 
     public function wpbac_admin_styles() {
         $wpbac_admin_page = $_GET['page'] ?? '';
+        $wpbac_admin_taxonomy = $_GET['taxonomy'] ?? '';
         $wpbac_plugin_pages = array('wpbac-all-bookings', 'wpbac-admin-settings', 'wpbac-admin-home');
-        if( !in_array($wpbac_admin_page, $wpbac_plugin_pages) ){
+        $wpbac_plugin_taxonomy = array('wpbac_car_characteristics');
+        if( !in_array($wpbac_admin_page, $wpbac_plugin_pages) && !in_array($wpbac_admin_taxonomy, $wpbac_plugin_taxonomy)) {
             return;
         }
         wp_register_style( 'wpbac-bootstrp-css', '//cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css', array(), null , FALSE );
@@ -37,13 +39,13 @@ class Wpbac_admin{
     }
 
     public function wpbac_admin_scripts() {
-        // $wpbac_admin_page = $_GET['page'] ?? '';
-        // $wpbac_admin_taxonomy = $_GET['taxonomy'] ?? '';
-        // $wpbac_plugin_pages = array('wpbac-all-bookings', 'wpbac-admin-settings', 'wpbac-admin-home');
-        // $wpbac_plugin_taxonomy = array('wpbac_car_characteristics');
-        // if( !in_array($wpbac_admin_page, $wpbac_plugin_pages) ||  !in_array( $wpbac_admin_taxonomy, $wpbac_plugin_taxonomy) ){
-        //     return;
-        // }
+        $wpbac_admin_page = $_GET['page'] ?? '';
+        $wpbac_admin_taxonomy = $_GET['taxonomy'] ?? '';
+        $wpbac_plugin_pages = array('wpbac-all-bookings', 'wpbac-admin-settings', 'wpbac-admin-home');
+        $wpbac_plugin_taxonomy = array('wpbac_car_characteristics');
+        if( !in_array($wpbac_admin_page, $wpbac_plugin_pages) &&  !in_array( $wpbac_admin_taxonomy, $wpbac_plugin_taxonomy) ){
+            return;
+        }
         wp_register_script( 'wpbac-main-js', WPBAC_ASSETS . 'admin/js/main.js', array('jquery'), WPBAC_VERSION, true );
         wp_register_script( 'wpbac-bootstrap-js', '//cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js', array(), '1.0.0', true );
         wp_enqueue_script('wpbac-bootstrap-js');
@@ -171,17 +173,15 @@ class Wpbac_admin{
         require_once WPBAC_PATH . 'admin/'. WPBAC_FILE_PRFX .'taxonomy-field.php';
     }
 
-    function wpbac_characteristics_edit_taxonomy($term) {
+    function wpbac_characteristics_edit_taxonomy($wpbac_characteristics) {
         require_once WPBAC_PATH . 'admin/'. WPBAC_FILE_PRFX .'update-field.php';
     }
 
-    function wpbac_characteristics_image_save($term_id) {
-        if ( isset( $_POST['term-image'] ) ) {
-            $image_id = absint( $_POST['term-image'] );
-            update_term_meta( $term_id, 'term-image', $image_id );
+    function wpbac_characteristics_image_save($characteristics_id) {
+        if ( isset( $_POST['wpbac-characteristics-image'] ) ) {
+            $characteristics_image_id = absint( $_POST['wpbac-characteristics-image'] );
+            update_term_meta( $characteristics_id, 'wpbac-characteristics-image', $characteristics_image_id );
         }
 
     }
-
-
 }

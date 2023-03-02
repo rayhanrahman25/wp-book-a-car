@@ -33,15 +33,12 @@
     });
   }
 
-
   jQuery(document).ready(function($){
 
     var mediaUploader;
 
-    $('#custom_media_button').click(function(e) {
+    $('#wpbac-upload-characteristics-img').click(function(e) {
         e.preventDefault();
-
-        alert("HELLO");
 
         // If the media uploader instance exists, reopen it.
         if ( mediaUploader ) {
@@ -61,18 +58,17 @@
         // When a file is selected, grab the URL and set it as the text field's value
         mediaUploader.on('select', function() {
             var attachment = mediaUploader.state().get('selection').first().toJSON();
-            $('#term-image').val(attachment.id);
-            $('#term-image-preview').html('<img src="' + attachment.url + '">');
+            $('#wpbac-characteristics-image').val(attachment.id);
+            $('#wpbac-characteristics-img-preview').html('<img class="wpbac-updated-characteristics-image" src="' + attachment.url + '">');
         });
 
-        // Open the media uploader dialog
         mediaUploader.open();
 
     });
 
-    $('#custom_media_remove').click(function() {
-        $('#term-image').val('');
-        $('#term-image-preview').html('');
+    $('#wpbac-remove-characteristics-img').click(function() {
+        $('#wpbac-characteristics-image').val('');
+        $('#wpbac-characteristics-img-preview').html('');
     });
 
 });

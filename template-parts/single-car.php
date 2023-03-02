@@ -20,7 +20,7 @@ get_header();
 		$wpbac_characteristics = get_the_terms(get_the_ID(), 'wpbac_car_characteristics');
 		if ( $wpbac_characteristics && !is_wp_error($wpbac_characteristics)) {
 		foreach ($wpbac_characteristics as $characteristics) {
-			$image_id = get_term_meta( $characteristics->term_id, 'term-image', true );
+			$image_id = get_term_meta( $characteristics->term_id, 'wpbac-characteristics-image', true );
 		?>
       	 <div class="col-md d-flex align-self-stretch">
             <div class="media block-6 services">
@@ -30,7 +30,7 @@ get_header();
 						<span>
 						<?php
 							if ( $image_id ) {
-								echo wp_get_attachment_image( $image_id, 'thumbnail' );
+								echo wp_get_attachment_image( $image_id);
 							}
 					  	?>
 						</span>

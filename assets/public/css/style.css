@@ -411,6 +411,10 @@
     padding: 6em 0;
     position: relative;
 }
+.ftco-section .media-body .icon img{
+    height: 50px;
+    width: auto;
+}
 @media (max-width: 767.98px) {
     .ftco-section {
         padding: 6em 0;
