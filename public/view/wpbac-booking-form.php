@@ -13,6 +13,7 @@
 									<div class="form-group">
 										<span class="form-label"><?php echo esc_html__('Name', WPBAC_TXT_DOMAIN); ?></span>
 										<input class="form-control wpbac-book-name" type="text" placeholder="Enter your name">
+										<input class="form-control wpbac-car-id" type="hidden" value="<?php echo get_the_ID(); ?>" placeholder="Enter your name">
 									</div>
 								</div>
 								<div class="col-sm-6">

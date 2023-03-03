@@ -24,16 +24,13 @@ class Wpbac_public{
         wp_enqueue_style( 'wpbac-public-bootstrp-css' );
         wp_enqueue_style( 'wpbac-public-css' );
 
-        if(is_singular( 'cars' )){
-            wp_enqueue_style( 'wpbac-public-bootstrp-css' );
-            wp_enqueue_style( 'wpbac-public-css' );
-        }
-
     }
 
     public function wpbac_public_scripts(){
         wp_register_script( 'wpbac-public-js',  WPBAC_ASSETS . 'public/js/public.js', array('jquery'), WPBAC_VERSION, true );
+        wp_register_script( 'wpbac-full-calender', '//cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js', array(), null , false );
         wp_enqueue_script( 'wpbac-public-js' );
+        wp_enqueue_script( 'wpbac-full-calender' );
         wp_localize_script( 'wpbac-public-js', 'wpbac_public', array('ajaxurl'=> admin_url('admin-ajax.php')) );
     }
 
@@ -45,15 +42,16 @@ class Wpbac_public{
         global $wpdb;
 
         $wpbac_user_data = array(
-            'wpbac_user_name'=> esc_html( $_POST['wpbac_name'] ),
-            'wpbac_user_email'=> esc_html( $_POST['wpbac_email'] ),
-            'wpbac_phone_number'=> esc_html( $_POST['wpbac_phone'] ),
-            'wpbac_pickup_location'=> esc_html( $_POST['wpbac_pickup'] ),
-            'wpbac_destination'=> esc_html( $_POST['wpbac_destination']),
-            'wpbac_pickup_date'=> esc_html( $_POST['wpbac_pickup_date'] ),
-            'wpbac_pickup_hour'=> esc_html( $_POST['wpbac_hour'] ),
-            'wpbac_pickup_min'=> esc_html( $_POST['wpbac_min'] ),
-            'wpbac_am_pm'=> esc_html( $_POST['wpbac_ap'] ),
+            'wpbac_user_name'=> sanitize_text_field( $_POST['wpbac_name'] ),
+            'wpbac_user_email'=> sanitize_text_field( $_POST['wpbac_email'] ),
+            'wpbac_phone_number'=> sanitize_text_field( $_POST['wpbac_phone'] ),
+            'wpbac_pickup_location'=> sanitize_text_field( $_POST['wpbac_pickup'] ),
+            'wpbac_destination'=> sanitize_text_field( $_POST['wpbac_destination']),
+            'wpbac_pickup_date'=> sanitize_text_field( $_POST['wpbac_pickup_date'] ),
+            'wpbac_pickup_hour'=> sanitize_text_field( $_POST['wpbac_hour'] ),
+            'wpbac_pickup_min'=> sanitize_text_field( $_POST['wpbac_min'] ),
+            'wpbac_am_pm'=> sanitize_text_field( $_POST['wpbac_ap'] ),
+            'wpbac_car_id'=> sanitize_text_field( $_POST['wpbac_car_id'] ),
         );
 
         $wpdb->insert( WPBAC_TABLE , $wpbac_user_data );

@@ -49,7 +49,8 @@ get_header();
 		}
 		?>
       	</div>
-      	<div class="row">
+
+      	<!-- <div class="row">
       		<div class="col-md-12 pills">
 						<div class="bd-example bd-example-tabs">
 							<div class="d-flex justify-content-center">
@@ -238,9 +239,18 @@ get_header();
 						</div>
 		      </div>
 				</div>
-      </div>
+      	</div> -->
     </section>
-
+	<section class="calender">
+			<div class="container">
+				<div id='calendar'></div>
+			</div>
+	</section>
+	<section class="booking">
+		<?php
+		  include WPBAC_PATH . 'public/view/' . WPBAC_FILE_PRFX .'booking-form.php';
+		?>
+	</section>
     <section class="ftco-section ftco-no-pt">
     	<div class="container">
     		<div class="row justify-content-center">

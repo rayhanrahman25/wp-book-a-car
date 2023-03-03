@@ -5,6 +5,7 @@ jQuery(document).ready( function($) {
       e.preventDefault();
 
       let wpbacName = $('.wpbac-book-name').val();
+      let wpbacCarId = $('.wpbac-car-id').val();
       let wpbacEmail = $('.wpbac-book-email').val();
       let wpbacPhone = $('.wpbac-book-phone').val();
       let wpbacPickup = $('.wpbac-book-pickup').val();
@@ -33,6 +34,7 @@ jQuery(document).ready( function($) {
             wpbac_hour : wpbacHour,
             wpbac_min : wpbacMin,
             wpbac_ap : wpbacAP,
+            wpbac_car_id : wpbacCarId,
          },
          success: function(response) {
          if(response.success) {
@@ -54,3 +56,23 @@ jQuery(document).ready( function($) {
    });
  
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+   var calendarEl = document.getElementById('calendar');
+   var calendar = new FullCalendar.Calendar(calendarEl, {
+     initialView: 'dayGridMonth',
+     events: [
+      {
+        title: 'BCH237',
+        start: '2023-03-03T10:30:00',
+        end: '2023-03-05T11:30:00',
+        extendedProps: {
+          department: 'BioChemistry'
+        },
+        description: 'Lecture'
+      },
+      // more events ...
+    ],
+   });
+   calendar.render();
+ });
