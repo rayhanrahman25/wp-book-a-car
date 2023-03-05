@@ -58,20 +58,12 @@ jQuery(document).ready( function($) {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+   var reservedDate = document.getElementById('wpbac-reserved-date').dataset.value;
    var calendarEl = document.getElementById('calendar');
    var calendar = new FullCalendar.Calendar(calendarEl, {
      initialView: 'dayGridMonth',
      events: [
-      {
-        title: 'BCH237',
-        start: '2023-03-03T10:30:00',
-        end: '2023-03-05T11:30:00',
-        extendedProps: {
-          department: 'BioChemistry'
-        },
-        description: 'Lecture'
-      },
-      // more events ...
+      reservedDate,
     ],
    });
    calendar.render();

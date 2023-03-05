@@ -68,7 +68,7 @@ if ( !defined( 'ABSPATH' ) ) {
             require_once ABSPATH . 'wp-admin/includes/upgrade.php';
             dbDelta( $sql );
         }
-  }
+    }
 
  }
 
