@@ -29,8 +29,8 @@ class Wpbac_public{
     public function wpbac_public_scripts(){
         wp_register_script( 'wpbac-public-js',  WPBAC_ASSETS . 'public/js/public.js', array('jquery'), WPBAC_VERSION, true );
         wp_register_script( 'wpbac-full-calender', '//cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js', array(), null , false );
-        wp_enqueue_script( 'wpbac-public-js' );
         wp_enqueue_script( 'wpbac-full-calender' );
+        wp_enqueue_script( 'wpbac-public-js' );
         wp_localize_script( 'wpbac-public-js', 'wpbac_public', array('ajaxurl'=> admin_url('admin-ajax.php')) );
     }
 

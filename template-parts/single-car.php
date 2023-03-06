@@ -14,6 +14,7 @@ global $wpdb;
 			}
 		}
 ?>
+
     <section class="ftco-section ftco-car-details">
       <div class="container">
       	<div class="row justify-content-center">
