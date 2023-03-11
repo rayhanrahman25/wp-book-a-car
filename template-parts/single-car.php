@@ -15,6 +15,24 @@ global $wpdb;
 		}
 ?>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+	var calendarEl = document.getElementById('calendar');
+	var calendar = new FullCalendar.Calendar(calendarEl, {
+	headerToolbar: {
+		left: 'prev,next today',
+		center: 'title',
+		right: 'dayGridMonth'
+	},
+	initialView: 'dayGridMonth',
+	navLinks: true,
+	editable: true,
+	events: [<?php  echo $resverd_dates; ?>],
+	});
+	calendar.render();
+});
+</script>
+
     <section class="ftco-section ftco-car-details">
       <div class="container">
       	<div class="row justify-content-center">
@@ -64,17 +82,23 @@ global $wpdb;
 		?>
       	</div>
     </section>
-	<section class="calender">
+
+	<section class="cal-book">
+		<div class="row">
+			<div class="col-md-6">
 			<div class="container">
-				<div id='calendar'></div>
 				<div id="wpbac-reserved-date" data-value="<?php echo $resverd_dates; ?>"></div>
+				<div id='calendar'></div>
 			</div>
+			</div>
+			<div class="col-md-6">
+			<?php
+				include WPBAC_PATH . 'public/view/' . WPBAC_FILE_PRFX .'booking-form.php';
+			?>
+			</div>
+		</div>
 	</section>
-	<section class="booking">
-		<?php
-		  include WPBAC_PATH . 'public/view/' . WPBAC_FILE_PRFX .'booking-form.php';
-		?>
-	</section>
+
     <section class="ftco-section ftco-no-pt">
     	<div class="container">
     		<div class="row justify-content-center">

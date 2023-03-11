@@ -1,15 +1,6 @@
 .section {
 	position: relative;
-	height: 100vh;
-}
-
-.section .section-center {
-	position: absolute;
-	top: 50%;
-	left: 0;
-	right: 0;
-	-webkit-transform: translateY(-50%);
-	transform: translateY(-50%);
+	height: 100%;
 }
 
 #booking {
@@ -19,15 +10,6 @@
 	background-position: center;
 }
 
-#booking::before {
-	content: '';
-	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	top: 0;
-	background: rgba(0, 0, 0, 0.6);
-}
 
 .booking-form {
 	max-width: 642px;
@@ -141,6 +123,33 @@
 
 .wpbac-submit-message {
 	color: #FFFFFF;
+}
+
+/* =============== Calender ============= */
+
+.fc-h-event .fc-event-title-container{
+    background: #ffc001;
+    color: #000000;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #000000;
+}
+
+.fc-scrollgrid-section a{
+    color: #000000;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active, 
+.fc .fc-button-primary:not(:disabled):active,
+.fc-direction-ltr .fc-button-group>.fc-button:not(:last-child),
+.fc-direction-ltr .fc-button-group>.fc-button:not(:first-child){
+    background-color: #ffc001 !important;
+    color: #000000 !important;
+    border: none !important;
+}
+
+.fc table {
+    border-collapse: unset;
 }
 
 

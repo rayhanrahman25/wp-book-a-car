@@ -57,14 +57,34 @@ jQuery(document).ready( function($) {
  
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-   var reservedDate = document.getElementById('wpbac-reserved-date').dataset.value;
-   var calendarEl = document.getElementById('calendar');
-   var calendar = new FullCalendar.Calendar(calendarEl, {
-     initialView: 'dayGridMonth',
-     events: [ 
-      reservedDate,
-    ],
-   });
-   calendar.render();
- });
+// document.addEventListener('DOMContentLoaded', function() {
+//    var reservedDate = document.getElementById('wpbac-reserved-date').dataset.value;
+//    var calendarEl = document.getElementById('calendar');
+//    var calendar = new FullCalendar.Calendar(calendarEl, {
+//      initialView: 'dayGridMonth',
+//      events: [ 
+//       reservedDate,
+//     ],
+//    });
+//    calendar.render();
+//  });
+
+// document.addEventListener('DOMContentLoaded', function() {
+//    var calendarEl = document.getElementById('calendar');
+//    var reservedDate = document.getElementById('wpbac-reserved-date').dataset.value;
+//    // alert(typeof(reservedDate));
+//    var calendar = new FullCalendar.Calendar(calendarEl, {
+//        headerToolbar: {
+//            left: 'prev,next today',
+//            center: 'title',
+//            right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+//        },
+//        initialView: 'dayGridMonth',
+//        navLinks: true,
+//        editable: true,
+//        events: [console.log(reservedDate)],
+       
+//    });
+//    calendar.render();
+   
+//  });

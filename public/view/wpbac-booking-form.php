@@ -1,12 +1,12 @@
 
-	<div id="booking" class="section"  style="background-image:url(<?php echo esc_attr(get_option( 'wpbac_form_background_image', '#' )); ?>);">
+	<div id="booking" class="section"  style="background-image:url(<?php // echo esc_attr(get_option( 'wpbac_form_background_image', '#' )); ?>);">
 		<div class="section-center">
 			<div class="container">
 				<div class="row">
 					<div class="booking-form">
-						<div class="form-header">
-							<h1><?php echo esc_html(get_option( 'wpbac_form_title', WPBAC_TXT_DOMAIN )); ?></h1>
-						</div>
+						<!-- <div class="form-header">
+							<h1><?php // echo esc_html(get_option( 'wpbac_form_title', WPBAC_TXT_DOMAIN )); ?></h1>
+						</div> -->
 						<form>
 							<div class="row">
 								<div class="col-sm-6">
