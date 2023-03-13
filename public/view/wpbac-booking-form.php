@@ -39,7 +39,7 @@
 								<div class="col-sm-5">
 									<div class="form-group">
 										<span class="form-label"><?php echo esc_html__('Pickup Date', WPBAC_TXT_DOMAIN); ?></span>
-										<input class="form-control wpbac-book-pickupdate" type="date" required>
+										<input class="form-control wpbac-book-pickupdate" id="wpbac-book-pickupdate" type="date" required>
 									</div>
 								</div>
 								<div class="col-sm-7">

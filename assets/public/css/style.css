@@ -125,6 +125,10 @@
 	color: #FFFFFF;
 }
 
+.text-gamboge{
+    color: #ffc001 !important;
+}
+
 /* =============== Calender ============= */
 
 .fc-h-event .fc-event-title-container{

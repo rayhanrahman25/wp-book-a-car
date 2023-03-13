@@ -5,17 +5,30 @@ global $wpdb;
 		$get_pickup_dates = $wpdb->get_results( "SELECT wpbac_pickup_date FROM {$wpdb->prefix}wpbac_book_a_car WHERE wpbac_car_id = $wpbac_car_id", ARRAY_A );
 		if('' !== $get_pickup_dates ){
 			$resverd_dates = '';
+			$disable_dates = [];
 			foreach( $get_pickup_dates as $get_pickup_date){
+				$datetime = new DateTime($get_pickup_date['wpbac_pickup_date']);
+				$today = new DateTime();
+				if($datetime > $today){
+				// disable dates on calender that reserved alerady
+				array_push($disable_dates, $get_pickup_date['wpbac_pickup_date']);
+
+				// get reserved dates to show booked alert on calender
 				$resverd_dates .= "{
 					title: 'Booked',
 					start: '".$get_pickup_date['wpbac_pickup_date']."',
 					end: '".$get_pickup_date['wpbac_pickup_date']."',
 				},";
+				}
 			}
 		}
 ?>
 
 <script>
+  // 
+  
+
+  //   Show Events By Book Date
   document.addEventListener('DOMContentLoaded', function() {
 	var calendarEl = document.getElementById('calendar');
 	var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -88,13 +101,18 @@ global $wpdb;
 			<div class="col-md-6">
 			<div class="container">
 				<div id="wpbac-reserved-date" data-value="<?php echo $resverd_dates; ?>"></div>
+				<h2 class="text-uppercase pb-5 text-center fw-bold">
+					<span class="text-gamboge">Available</span>
+					<span class="text-dark">Dates </span>
+				</h2>
 				<div id='calendar'></div>
 			</div>
 			</div>
 			<div class="col-md-6">
-			<?php
+				
+				<?php
 				include WPBAC_PATH . 'public/view/' . WPBAC_FILE_PRFX .'booking-form.php';
-			?>
+				?>
 			</div>
 		</div>
 	</section>
@@ -153,6 +171,18 @@ global $wpdb;
         </div>
     	</div>
     </section>
+	<script>
+		const disabledDates = [<?php echo implode(" ,",$disable_dates); ?>];
+  const dateInput = document.getElementById("wpbac-book-pickupdate");
+//   const dateOptions = dateInput.querySelectorAll("option");
+  dateInput.addEventListener("input", function(event) {
+    const selectedDate = event.target.value;
+    if (disabledDates.includes(selectedDate)) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  });
+	</script>
     <?php
     get_footer();
     ?>
