@@ -5,14 +5,10 @@ global $wpdb;
 		$get_pickup_dates = $wpdb->get_results( "SELECT wpbac_pickup_date FROM {$wpdb->prefix}wpbac_book_a_car WHERE wpbac_car_id = $wpbac_car_id", ARRAY_A );
 		if('' !== $get_pickup_dates ){
 			$resverd_dates = '';
-			$disable_dates = [];
 			foreach( $get_pickup_dates as $get_pickup_date){
 				$datetime = new DateTime($get_pickup_date['wpbac_pickup_date']);
 				$today = new DateTime();
-				if($datetime > $today){
-				// disable dates on calender that reserved alerady
-				array_push($disable_dates, $get_pickup_date['wpbac_pickup_date']);
-
+				if($datetime > $today) {
 				// get reserved dates to show booked alert on calender
 				$resverd_dates .= "{
 					title: 'Booked',
@@ -25,10 +21,7 @@ global $wpdb;
 ?>
 
 <script>
-  // 
-  
-
-  //   Show Events By Book Date
+    //   Show Events By Book Date
   document.addEventListener('DOMContentLoaded', function() {
 	var calendarEl = document.getElementById('calendar');
 	var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -54,7 +47,7 @@ global $wpdb;
       				
                     <?php the_post_thumbnail(); ?>
       				<div class="text text-center">
-      					<span class="subheading">Cheverolet</span>
+      					<span class="subheading">Cheverolet <?php // echo  $pickup_date; ?></span>
       					<h2><?php the_title(); ?></h2>
       				</div>
       			</div>
@@ -171,18 +164,6 @@ global $wpdb;
         </div>
     	</div>
     </section>
-	<script>
-		const disabledDates = [<?php echo implode(" ,",$disable_dates); ?>];
-  const dateInput = document.getElementById("wpbac-book-pickupdate");
-//   const dateOptions = dateInput.querySelectorAll("option");
-  dateInput.addEventListener("input", function(event) {
-    const selectedDate = event.target.value;
-    if (disabledDates.includes(selectedDate)) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-  });
-	</script>
     <?php
     get_footer();
     ?>

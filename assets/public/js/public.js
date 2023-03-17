@@ -1,5 +1,13 @@
 jQuery(document).ready( function($) {
 
+
+   // set 
+   var wpbacToday = new Date();
+   var wpbacTomorrow = new Date(wpbacToday.getTime() + 24 * 60 * 60 * 1000);
+   var wpabacDateFromt = wpbacTomorrow.toISOString().substring(0, 10);
+   document.getElementById("wpbac-book-pickupdate").setAttribute("min", wpabacDateFromt);
+
+
    $(".wpbac-submit-book").click( function(e) {
 
       e.preventDefault();
@@ -14,10 +22,21 @@ jQuery(document).ready( function($) {
       let wpbacHour = $('.wpbac-book-hour').find(":selected").val();
       let wpbacMin = $('.wpbac-book-min').find(":selected").val();
       let wpbacAP = $('.wpbac-book-ap').find(":selected").val();
+      // Check Input Email Is Valid Or Not
+      function isValidEmail(email) {
+         var pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+         return pattern.test(email);
+      }
 
       if('' !== wpbacName && '' !== wpbacEmail && '' !== wpbacPhone && 
       '' !== wpbacPickup && '' !== wpbacDestination && '' !== wpbacPickupDate && 
       '' !== wpbacHour && '' !== wpbacMin && '' !== wpbacAP) {
+      
+      if(!isValidEmail(wpbacEmail)){
+         $(".wpbac-message-wrapper").css("display","block");
+         $(".wpbac-submit-message").html("Please Enter Valid Email Address");
+        return;
+      }
 
       $.ajax({
          type : "post",
@@ -40,15 +59,20 @@ jQuery(document).ready( function($) {
          if(response.success) {
             $(".wpbac-message-wrapper").css("display","block");
             $(".wpbac-submit-message").html(response.message);
-         }
-         else {
+            setTimeout(function(){
+               location.reload();
+           }, 1000); 
+         }else if(response.date_exist){
+            $(".wpbac-message-wrapper").css("display","block");
+            $(".wpbac-submit-message").html(response.message);
+         }else{
             $(".wpbac-message-wrapper").css("display","block");
             $(".wpbac-submit-message").html("Something Went Wrong");
          }
          }
        });
 
-      } else{
+      }else{
          $(".wpbac-message-wrapper").css("display","block");
          $(".wpbac-submit-message").html("Please fill all fields");
       }
@@ -57,34 +81,3 @@ jQuery(document).ready( function($) {
  
 });
 
-// document.addEventListener('DOMContentLoaded', function() {
-//    var reservedDate = document.getElementById('wpbac-reserved-date').dataset.value;
-//    var calendarEl = document.getElementById('calendar');
-//    var calendar = new FullCalendar.Calendar(calendarEl, {
-//      initialView: 'dayGridMonth',
-//      events: [ 
-//       reservedDate,
-//     ],
-//    });
-//    calendar.render();
-//  });
-
-// document.addEventListener('DOMContentLoaded', function() {
-//    var calendarEl = document.getElementById('calendar');
-//    var reservedDate = document.getElementById('wpbac-reserved-date').dataset.value;
-//    // alert(typeof(reservedDate));
-//    var calendar = new FullCalendar.Calendar(calendarEl, {
-//        headerToolbar: {
-//            left: 'prev,next today',
-//            center: 'title',
-//            right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-//        },
-//        initialView: 'dayGridMonth',
-//        navLinks: true,
-//        editable: true,
-//        events: [console.log(reservedDate)],
-       
-//    });
-//    calendar.render();
-   
-//  });

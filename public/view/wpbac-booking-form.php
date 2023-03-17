@@ -19,13 +19,13 @@
 								<div class="col-sm-6">
 									<div class="form-group">
 										<span class="form-label"><?php echo esc_html__('Email', WPBAC_TXT_DOMAIN); ?></span>
-										<input class="form-control wpbac-book-email" type="email" placeholder="Enter your email">
+										<input class="form-control wpbac-book-email" type="text" placeholder="Enter your email" >
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
 								<span class="form-label"><?php echo esc_html__('Phone', WPBAC_TXT_DOMAIN); ?></span>
-								<input class="form-control wpbac-book-phone" type="tel" placeholder="Enter your phone number">
+								<input class="form-control wpbac-book-phone" type="number" placeholder="Enter your phone number">
 							</div>
 							<div class="form-group">
 								<span class="form-label"><?php echo esc_html__('Pickup Location', WPBAC_TXT_DOMAIN); ?></span>

@@ -40,7 +40,8 @@ class Wpbac_public{
 
     public function wpbac_booked_data(){
         global $wpdb;
-
+        
+        // User Booking Data
         $wpbac_user_data = array(
             'wpbac_user_name'=> sanitize_text_field( $_POST['wpbac_name'] ),
             'wpbac_user_email'=> sanitize_text_field( $_POST['wpbac_email'] ),
@@ -53,15 +54,30 @@ class Wpbac_public{
             'wpbac_am_pm'=> sanitize_text_field( $_POST['wpbac_ap'] ),
             'wpbac_car_id'=> sanitize_text_field( $_POST['wpbac_car_id'] ),
         );
+        $table_name = WPBAC_TABLE;
+        $date = sanitize_text_field( $_POST['wpbac_pickup_date'] );
+        // Prepare and execute the query
+        $pickup_date_query = $wpdb->prepare("SELECT COUNT(*) FROM $table_name WHERE wpbac_pickup_date = %s", $date);
+        $pickup_date = $wpdb->get_var( $pickup_date_query);
 
-        $wpdb->insert( WPBAC_TABLE , $wpbac_user_data );
-         echo $_POST['wpbac_ap'];
-        $wpbac_response = array(
-            'success' => true,
-            'message' => 'Thank you for booking with us!',
-        );
-        wp_send_json( $wpbac_response );  
-        wp_die();
+        if($pickup_date >= 1) {
+            $wpbac_response = array(
+                'date_exist' => true,
+                'message' => 'Date already booked please select another date',
+            ); 
+            wp_send_json( $wpbac_response );  
+            wp_die();
+        }else{
+        // insert booking data
+            $wpdb->insert( WPBAC_TABLE , $wpbac_user_data );
+            $wpbac_response = array(
+                'success' => true,
+                'message' => 'Thank you for booking with us!',
+            );
+            wp_send_json( $wpbac_response );  
+            wp_die();
+        }
+        
     }
 
 }
