@@ -54,7 +54,8 @@ if ( !defined( 'ABSPATH' ) ) {
         add_action( 'wp_enqueue_scripts', array( $wpbac_public,  WPBAC_PRFX . 'public_scripts' ) );
         add_action( 'wp_ajax_user_booked_data', array( $wpbac_public,  WPBAC_PRFX . 'booked_data' ));
         add_action( 'wp_ajax_nopriv_user_booked_data', array( $wpbac_public,  WPBAC_PRFX . 'booked_data' ));
-        add_shortcode( 'wpbac_booking_page', array( $wpbac_public, 'wpbac_load_shortcode_view' ) );
+        add_shortcode( 'wpbac_booking_page', array( $wpbac_public, WPBAC_PRFX . 'load_shortcode_view' ) );
+        add_filter( 'archive_template', array( $wpbac_public, WPBAC_PRFX . 'car_archive' ) );
     }
    
     private function wpbac_install_tables(){

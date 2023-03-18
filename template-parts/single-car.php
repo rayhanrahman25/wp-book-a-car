@@ -44,10 +44,8 @@ global $wpdb;
       	<div class="row justify-content-center">
       		<div class="col-md-12">
       			<div class="car-details">
-      				
                     <?php the_post_thumbnail(); ?>
       				<div class="text text-center">
-      					<span class="subheading">Cheverolet <?php // echo  $pickup_date; ?></span>
       					<h2><?php the_title(); ?></h2>
       				</div>
       			</div>
@@ -66,16 +64,18 @@ global $wpdb;
               	<div class="d-flex mb-3 align-items-center">
 	              	<div class="icon d-flex align-items-center justify-content-center">
 						<span>
-						<?php
-							if ( $image_id ) {
-								echo wp_get_attachment_image( $image_id);
-							}
-					  	?>
+							<?php
+								if ( $image_id ) {
+									echo wp_get_attachment_image( $image_id);
+								}
+							?>
 						</span>
 					</div>
 	              	<div class="text">
 		                <h3 class="heading mb-0 pl-3">
-							<span><?php echo '<a href="' . esc_url(get_term_link($characteristics)) . '">' . esc_html($characteristics->name) . '</a> '; ?></span>
+							<span>
+								<?php echo '<a href="' . esc_url(get_term_link($characteristics)) . '">' . esc_html($characteristics->name) . '</a> '; ?>
+							</span>
 		                </h3>
 	                </div>
                 </div>
@@ -89,20 +89,19 @@ global $wpdb;
       	</div>
     </section>
 
-	<section class="cal-book">
+	<section class="cal-book pb-5">
 		<div class="row">
 			<div class="col-md-6">
-			<div class="container">
-				<div id="wpbac-reserved-date" data-value="<?php echo $resverd_dates; ?>"></div>
-				<h2 class="text-uppercase pb-5 text-center fw-bold">
-					<span class="text-gamboge">Available</span>
-					<span class="text-dark">Dates </span>
-				</h2>
-				<div id='calendar'></div>
-			</div>
+				<div class="container">
+					<div id="wpbac-reserved-date"></div>
+					<h2 class="text-uppercase pb-5 text-center fw-bold">
+						<span class="text-gamboge"><?php echo __('Available', WPBAC_TXT_DOMAIN); ?></span>
+						<span class="text-dark"><?php echo __('Dates', WPBAC_TXT_DOMAIN); ?></span>
+					</h2>
+					<div id='calendar'></div>
+				</div>
 			</div>
 			<div class="col-md-6">
-				
 				<?php
 				include WPBAC_PATH . 'public/view/' . WPBAC_FILE_PRFX .'booking-form.php';
 				?>
@@ -110,58 +109,52 @@ global $wpdb;
 		</div>
 	</section>
 
-    <section class="ftco-section ftco-no-pt">
+    <section class="ftco-section pt-5">
     	<div class="container">
-    		<div class="row justify-content-center">
-          <div class="col-md-12 heading-section text-center ftco-animate mb-5">
-          	<span class="subheading">Choose Car</span>
-            <h2 class="mb-2">Related Cars</h2>
-          </div>
-        </div>
-        <div class="row">
-        	<div class="col-md-4">
-    				<div class="car-wrap rounded ftco-animate">
-    					<div class="img rounded d-flex align-items-end" style="background-image: url(images/car-1.jpg);">
-    					</div>
-    					<div class="text">
-    						<h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
-    						<div class="d-flex mb-3">
-	    						<span class="cat">Cheverolet</span>
-	    						<p class="price ml-auto">$500 <span>/day</span></p>
-    						</div>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-4">
-    				<div class="car-wrap rounded ftco-animate">
-    					<div class="img rounded d-flex align-items-end" style="background-image: url(images/car-2.jpg);">
-    					</div>
-    					<div class="text">
-    						<h2 class="mb-0"><a href="car-single.html">Range Rover</a></h2>
-    						<div class="d-flex mb-3">
-	    						<span class="cat">Subaru</span>
-	    						<p class="price ml-auto">$500 <span>/day</span></p>
-    						</div>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-4">
-    				<div class="car-wrap rounded ftco-animate">
-    					<div class="img rounded d-flex align-items-end" style="background-image: url(images/car-3.jpg);">
-    					</div>
-    					<div class="text">
-    						<h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
-    						<div class="d-flex mb-3">
-	    						<span class="cat">Cheverolet</span>
-	    						<p class="price ml-auto">$500 <span>/day</span></p>
-    						</div>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
-    					</div>
-    				</div>
-    			</div>
-        </div>
+			<div class="row justify-content-center">
+				<div class="col-md-12 heading-section text-center mb-5">
+					<span class="subheading"><?php echo __('Choose Car', WPBAC_TXT_DOMAIN); ?></span>
+					<h2 class="mb-2"><?php echo __('Related Cars', WPBAC_TXT_DOMAIN); ?></h2>
+				</div>
+			</div>
+			<div class="row">
+				<?php
+				$wpbac_related_categories = get_the_category( get_the_ID() );
+				if( $wpbac_related_categories ){
+					$get_first_category = $wpbac_related_categories[0];
+					$wpbac_cars_args = array(
+						'category__in' => array( $get_first_category),
+						'post__not_in' => array( get_the_ID() ),
+						'posts_per_page' => 3,
+					);
+				}
+				$wpbac_get_cars_query = new WP_Query( $wpbac_cars_args );
+				if( $wpbac_get_cars_query->have_posts()) {
+					while ( $wpbac_get_cars_query->have_posts() ) {
+							$wpbac_get_cars_query->the_post();
+				?>
+				<div class="col-md-4">
+					<div class="car-wrap rounded">
+						<div class="wpbac-car-archive-image rounded d-flex align-items-end">
+							<?php the_post_thumbnail(); ?>
+						</div>
+						<div class="text">
+							<h2 class="mb-0">
+								<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+							</h2>
+							<div class="d-flex mb-3">
+								<p class="price ml-auto">$500 <span>/day</span></p>
+							</div>
+							<p class="d-flex mb-0 d-block"><a href="<?php the_permalink(); ?>" class="btn btn-primary py-2 mr-1">Book now</a> <a href="<?php the_permalink(); ?>" class="btn btn-secondary py-2 ml-1">Details</a></p>
+						</div>
+					</div>
+				</div>
+				<?php
+					}
+					wp_reset_postdata();
+				}
+				?>
+			</div>
     	</div>
     </section>
     <?php

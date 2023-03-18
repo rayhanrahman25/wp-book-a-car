@@ -129,6 +129,11 @@
     color: #ffc001 !important;
 }
 
+.wpbac-car-archive-image img{
+    height: 250px;
+    width: 100%;
+}
+
 /* =============== Calender ============= */
 
 .fc-h-event .fc-event-title-container{
@@ -575,12 +580,14 @@
     line-height: 40px;
     border-radius: 50%;
     border: 1px solid #e6e6e6;
+    margin: 5px;
 }
 .block-27 ul li.active a,
-.block-27 ul li.active span {
+.block-27 ul li span.page-numbers.current {
     background: #1089ff;
     color: #fff;
     border: 1px solid transparent;
+    margin: 5px;
 }
 .block-9 h2 {
     font-size: 24px;

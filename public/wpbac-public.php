@@ -35,7 +35,12 @@ class Wpbac_public{
     }
 
     public function wpbac_load_shortcode_view(){
-         include WPBAC_PATH . 'public/view/' . WPBAC_FILE_PRFX .'booking-form.php';
+        include WPBAC_PATH . 'public/view/' . WPBAC_FILE_PRFX .'booking-form.php';
+    }
+
+    public function wpbac_car_archive($wpbac_archive_template){
+        require_once WPBAC_PATH . 'public/view/'. WPBAC_FILE_PRFX .'archive-template.php';
+        return $wpbac_archive_template;
     }
 
     public function wpbac_booked_data(){
