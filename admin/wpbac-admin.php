@@ -91,73 +91,7 @@ class Wpbac_admin{
     }
 
     function wpbac_settings() {
-        ?>
-        <div class="wrap">
-        <h2><?php echo __('Settings', WPBAC_TXT_DOMAIN); ?></h2>
-        <form method="post" action="options.php">
-            <?php
-                settings_fields('wpbac_admin_options');
-                do_settings_sections( 'wpbac_admin_options' );
-                submit_button();
-            ?>
-        </form>
-    </div> 
-    <?php
-    }
-
-    public function wpbac_admin_sections() {
-        add_settings_section( $this->wpbac_section_name , false , null , 'wpbac_admin_options' );
-    }
-
-    public function wpbac_admin_settings_fields() {
-        $wpbac_settings_fields = array(
-            array(
-                'id' => 'wpbac_form_title',
-                'label' => 'Form Title',
-                'section' => $this->wpbac_section_name,
-                'type' => 'text',
-                'options' => false,
-                'default' => __('Book A Car', WPBAC_TXT_DOMAIN),
-            ),
-            array(
-                'id' => 'wpbac_form_background_image',
-                'label' => 'Upload Background Image',
-                'section' => $this->wpbac_section_name,
-                'type' => 'hidden',
-                'options' => false,
-                'default' => WPBAC_ASSETS . 'images/background.jpg',
-            ),
-
-        );
-
-        foreach( $wpbac_settings_fields as $wpbac_settings_field ){
-            add_settings_field( $wpbac_settings_field['id'], $wpbac_settings_field['label'], array( $this, WPBAC_PRFX . 'settings_callback' ), 'wpbac_admin_options', $wpbac_settings_field['section'], $wpbac_settings_field );
-            register_setting( 'wpbac_admin_options', $wpbac_settings_field['id'] );
-        }
-
-    }
-
-    public function wpbac_settings_callback( $wpbac_settings_args ) {
-        
-        if( 'wpbac_form_title' === $wpbac_settings_args['id'] ){
-            $wpbac_form_title_value = esc_attr(get_option( $wpbac_settings_args['id'] ));
-            if( !$wpbac_form_title_value ){
-                $wpbac_form_title_value =  $wpbac_settings_args['default'];
-            }
-            printf( '<input name="%1$s" id="%1$s" type="%2$s" placeholder="%3$s" value="%4$s" />', esc_attr($wpbac_settings_args['id']), esc_attr($wpbac_settings_args['type']), esc_attr($wpbac_settings_args['placeholder']), esc_attr($wpbac_form_title_value));
-        }
-
-        if( 'wpbac_form_background_image'  === $wpbac_settings_args['id'] ){
-            $wpbac_form_background_image = esc_attr(get_option( $wpbac_settings_args['id'] ));
-            if(!$wpbac_form_background_image){
-                $wpbac_form_background_image =  $wpbac_settings_args['default'];
-            }
-            printf('<img class="show-profile-img" src="%s"><br/><br/>', esc_attr($wpbac_form_background_image));
-            printf( '<input type="%2$s" id="%1$s" name="%1$s" value="%3$s">',  esc_attr($wpbac_settings_args['id']), esc_attr($wpbac_settings_args['type']), esc_attr($wpbac_form_background_image));
-            ?>
-            <input type="button" class="button button-primary wpbac-form-upload-image" value="Upload Image" />
-            <?php
-        }
+       echo "HELLO";
     }
 
     public function wpbac_admin_cars() {

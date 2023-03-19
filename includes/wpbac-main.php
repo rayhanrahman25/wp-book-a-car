@@ -38,8 +38,8 @@ if ( !defined( 'ABSPATH' ) ) {
         add_action( 'admin_menu', array( $wpbac_admin,  WPBAC_PRFX . 'admin_menu' ) );
         add_action( 'admin_enqueue_scripts', array( $wpbac_admin , WPBAC_PRFX . 'admin_styles' ) );
         add_action( 'admin_enqueue_scripts', array( $wpbac_admin , WPBAC_PRFX . 'admin_scripts' ) );
-        add_action( 'admin_init', array( $wpbac_admin, WPBAC_PRFX . 'admin_sections' ) );
-        add_action( 'admin_init', array( $wpbac_admin, WPBAC_PRFX . 'admin_settings_fields' ) );
+        // add_action( 'admin_init', array( $wpbac_admin, WPBAC_PRFX . 'admin_sections' ) );
+        // add_action( 'admin_init', array( $wpbac_admin, WPBAC_PRFX . 'admin_settings_fields' ) );
         add_action( 'init', array( $wpbac_admin, WPBAC_PRFX . 'admin_cars' ) );
         add_filter( 'single_template', array( $wpbac_admin, WPBAC_PRFX . 'single_car' ) );
         add_action( 'wpbac_car_characteristics_add_form_fields', array( $wpbac_admin, WPBAC_PRFX . 'characteristics_image' ) );

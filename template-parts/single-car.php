@@ -119,15 +119,16 @@ global $wpdb;
 			</div>
 			<div class="row">
 				<?php
-				$wpbac_related_categories = get_the_category( get_the_ID() );
-				if( $wpbac_related_categories ){
-					$get_first_category = $wpbac_related_categories[0];
+				
 					$wpbac_cars_args = array(
-						'category__in' => array( $get_first_category),
-						'post__not_in' => array( get_the_ID() ),
+						'post_type' => 'cars',
+                        'orderby' => 'date',
+						'cat' => the_category(),
+						'post__not_in' => array(get_the_ID()),
+                        'order' => 'DESC',
 						'posts_per_page' => 3,
 					);
-				}
+				
 				$wpbac_get_cars_query = new WP_Query( $wpbac_cars_args );
 				if( $wpbac_get_cars_query->have_posts()) {
 					while ( $wpbac_get_cars_query->have_posts() ) {
