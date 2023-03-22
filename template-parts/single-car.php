@@ -102,6 +102,10 @@ global $wpdb;
 				</div>
 			</div>
 			<div class="col-md-6">
+				<h2 class="text-uppercase pb-5 text-center fw-bold">
+					<span class="text-gamboge"><?php echo __('Book', WPBAC_TXT_DOMAIN); ?></span>
+					<span class="text-dark"><?php echo __('Now', WPBAC_TXT_DOMAIN); ?></span>
+				</h2>
 				<?php
 				include WPBAC_PATH . 'public/view/' . WPBAC_FILE_PRFX .'booking-form.php';
 				?>
@@ -113,7 +117,7 @@ global $wpdb;
     	<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-12 heading-section text-center mb-5">
-					<span class="subheading"><?php echo __('Choose Car', WPBAC_TXT_DOMAIN); ?></span>
+					<span class="subheading text-gamboge fw-bold"><?php echo __('Choose Car', WPBAC_TXT_DOMAIN); ?></span>
 					<h2 class="mb-2"><?php echo __('Related Cars', WPBAC_TXT_DOMAIN); ?></h2>
 				</div>
 			</div>
@@ -144,9 +148,9 @@ global $wpdb;
 								<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 							</h2>
 							<div class="d-flex mb-3">
-								<p class="price ml-auto">$500 <span>/day</span></p>
+								<p class="price ml-auto text-dark">$500 <span class="text-gamboge fw-bold">/day</span></p>
 							</div>
-							<p class="d-flex mb-0 d-block"><a href="<?php the_permalink(); ?>" class="btn btn-primary py-2 mr-1">Book now</a> <a href="<?php the_permalink(); ?>" class="btn btn-secondary py-2 ml-1">Details</a></p>
+							<p class="d-flex mb-0 d-block"><a href="<?php the_permalink(); ?>" class="btn bg-gamboge py-2 mr-1">Book now</a> <a href="<?php the_permalink(); ?>" class="btn btn-secondary py-2 ml-1">Details</a></p>
 						</div>
 					</div>
 				</div>

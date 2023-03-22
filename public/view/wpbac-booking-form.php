@@ -94,9 +94,16 @@
 												<span class="select-arrow"></span>
 											</div>
 										</div>
+										<div class="col-md-12">
+											
+										</div>
 									</div>
 								</div>
 							</div>
+							<!-- stripe elements  -->
+							<div id="card-element" class="StripeElement"> </div>
+							<div id="card-errors" role="alert"></div>
+
 							<div class="form-btn">
 								<button class="wpbac-submit-book"><?php echo esc_html__('Book Now', WPBAC_TXT_DOMAIN); ?></button>
 							</div>

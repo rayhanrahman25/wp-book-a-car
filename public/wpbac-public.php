@@ -20,15 +20,20 @@ class Wpbac_public{
     public function wpbac_public_styles(){
         wp_register_style( 'wpbac-public-bootstrp-css', '//cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css', array(), null , false );
         wp_register_style( 'wpbac-public-css', WPBAC_ASSETS . 'public/css/style.css', array(), WPBAC_VERSION, false );
-
+        wp_register_style( 'wpbac-stripe-css', WPBAC_ASSETS . 'public/css/stripe.css', array(), WPBAC_VERSION, false );
+        wp_enqueue_style( 'wpbac-stripe-css' );
         wp_enqueue_style( 'wpbac-public-bootstrp-css' );
         wp_enqueue_style( 'wpbac-public-css' );
 
     }
 
     public function wpbac_public_scripts(){
-        wp_register_script( 'wpbac-public-js',  WPBAC_ASSETS . 'public/js/public.js', array('jquery'), WPBAC_VERSION, false );
-        wp_register_script( 'wpbac-full-calender', '//cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js', array(), null , false );
+        wp_register_script( 'wpbac-public-js',  WPBAC_ASSETS . 'public/js/public.js', array('jquery'), WPBAC_VERSION, true );
+        wp_register_script( 'wpbac-full-calender', '//cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js', array(), null , true);
+        wp_register_script( 'wpbac-stripe-js', '//js.stripe.com/v3/', null , null , false);
+        wp_register_script( 'wpbac-stripe-config-js',  WPBAC_ASSETS . 'public/js/stripe-config.js', null , null , true);
+        wp_enqueue_script( 'wpbac-stripe-js');
+        wp_enqueue_script( 'wpbac-stripe-config-js');
         wp_enqueue_script( 'wpbac-full-calender' );
         wp_enqueue_script( 'wpbac-public-js' );
         wp_localize_script( 'wpbac-public-js', 'wpbac_public', array('ajaxurl'=> admin_url('admin-ajax.php')) );

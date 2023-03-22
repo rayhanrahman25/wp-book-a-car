@@ -129,6 +129,12 @@
     color: #ffc001 !important;
 }
 
+.bg-gamboge{
+    background: #ffc001 !important;
+    color:#000000;
+    font-weight: 600;
+}
+
 .wpbac-car-archive-image img{
     height: 250px;
     width: 100%;

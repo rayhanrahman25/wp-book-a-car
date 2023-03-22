@@ -26,6 +26,7 @@
  define('WPBAC_TABLE', $wpdb->prefix . 'wpbac_book_a_car');
 
  // Required Files
+ 
  require_once WPBAC_PATH . 'includes/'. WPBAC_FILE_PRFX .'main.php';
  new wpbac_Main_Class();
 
