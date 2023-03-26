@@ -38,9 +38,10 @@ if ( !defined( 'ABSPATH' ) ) {
         add_action( 'admin_menu', array( $wpbac_admin,  WPBAC_PRFX . 'admin_menu' ) );
         add_action( 'admin_enqueue_scripts', array( $wpbac_admin , WPBAC_PRFX . 'admin_styles' ) );
         add_action( 'admin_enqueue_scripts', array( $wpbac_admin , WPBAC_PRFX . 'admin_scripts' ) );
-        // add_action( 'admin_init', array( $wpbac_admin, WPBAC_PRFX . 'admin_sections' ) );
-        // add_action( 'admin_init', array( $wpbac_admin, WPBAC_PRFX . 'admin_settings_fields' ) );
         add_action( 'init', array( $wpbac_admin, WPBAC_PRFX . 'admin_cars' ) );
+        add_action( 'admin_init', array( $wpbac_admin, WPBAC_PRFX . 'register_settings' ) );
+        add_action( 'add_meta_boxes',  array( $wpbac_admin, WPBAC_PRFX . 'rent_price_metabox' )  );
+        add_action( 'save_post_cars', array( $wpbac_admin, WPBAC_PRFX . 'cars_save_meta_box_data' ) );
         add_filter( 'single_template', array( $wpbac_admin, WPBAC_PRFX . 'single_car' ) );
         add_action( 'wpbac_car_characteristics_add_form_fields', array( $wpbac_admin, WPBAC_PRFX . 'characteristics_image' ) );
         add_action( 'edited_wpbac_car_characteristics', array( $wpbac_admin, WPBAC_PRFX . 'characteristics_image_save' ) );

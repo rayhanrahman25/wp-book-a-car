@@ -82,16 +82,104 @@ class Wpbac_admin{
         
     }
 
+        
+    /**
+     * Callback function to display the settings page
+     */
+    public function wpbac_settings() {
+        ?>
+        <div class="wrap">
+            <form method="post" action="options.php">
+                <?php
+                settings_fields( 'wpbac_settings' );
+                do_settings_sections( 'wpbac_admin_settings' );
+                submit_button();
+                ?>
+            </form>
+        </div>
+        <?php
+    }
+    
+    public function wpbac_register_settings() {
+        register_setting(
+            'wpbac_settings',
+            'wpbac_public_key'
+        );
+        register_setting(
+            'wpbac_settings',
+            'wpbac_secret_key'
+        );
+        add_settings_section(
+            'wpbac_api_keys_section',
+            __( 'API Keys Settings', WPBAC_TXT_DOMAIN ),
+            array( $this, 'api_keys_section_callback' ),
+            'wpbac_admin_settings'
+        );
+        add_settings_field(
+            'wpbac_public_key',
+            __( 'Public API Key', WPBAC_TXT_DOMAIN ),
+            array( $this, 'public_key_field_callback' ),
+            'wpbac_admin_settings',
+            'wpbac_api_keys_section'
+        );
+        add_settings_field(
+            'wpbac_secret_key',
+            __( 'Secret API Key', WPBAC_TXT_DOMAIN ),
+            array( $this, 'secret_key_field_callback' ),
+            'wpbac_admin_settings',
+            'wpbac_api_keys_section'
+        );
+    }
+    
+    public function api_keys_section_callback() {
+        echo '<p>' . esc_html__( 'Enter your stripe API keys below:', WPBAC_TXT_DOMAIN ) . '</p>';
+    }
+    
+    public function public_key_field_callback() {
+        echo '<input type="text" name="wpbac_public_key" value="' . esc_attr( get_option( 'wpbac_public_key' ) ) . '">';
+    }
+    
+    public function secret_key_field_callback() {
+        echo '<input type="password" name="wpbac_secret_key" value="' . esc_attr( get_option( 'wpbac_secret_key' ) ) . '">';
+    }
+
+    function wpbac_rent_price_metabox() {
+        add_meta_box( 'wpbac_car_rent_price', 'Rent Price', array($this, 'wpbac_car_rent_price_callback') , 'cars', 'normal', 'high' );
+    }
+
+    function wpbac_car_rent_price_callback( $post ) {
+        wp_nonce_field( 'cars_save_meta_box_data', 'wpbac_car_rent_price_nonce' );
+        $value = get_post_meta( $post->ID, 'wpbac_car_rent_price_field', true );
+        echo '<input type="number" id="wpbac_car_rent_price_field" name="wpbac_car_rent_price_field" value="' . esc_attr( $value ) . '">';
+    }
+
+    function wpbac_cars_save_meta_box_data( $post_id ) {
+        if ( ! isset( $_POST['wpbac_car_rent_price_nonce'] ) ) {
+            return;
+        }
+        if ( ! wp_verify_nonce( $_POST['wpbac_car_rent_price_nonce'], 'cars_save_meta_box_data' ) ) {
+            return;
+        }
+        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+            return;
+        }
+        if ( ! current_user_can( 'edit_post', $post_id ) ) {
+            return;
+        }
+        if ( isset( $_POST['wpbac_car_rent_price_field'] ) ) {
+            $number = sanitize_text_field( $_POST['wpbac_car_rent_price_field'] );
+            if ( is_numeric( $number ) ) {
+                update_post_meta( $post_id, 'wpbac_car_rent_price_field', $number );
+            }
+        }
+    }
+
     function wpbac_admin_home() {
         require_once WPBAC_PATH . 'admin/view/'. WPBAC_FILE_PRFX .'admin-home.php';
     }
 
     function wpbac_all_bookings() {
         require_once WPBAC_PATH . 'admin/view/'. WPBAC_FILE_PRFX .'booking-lists.php';
-    }
-
-    function wpbac_settings() {
-       echo "HELLO";
     }
 
     public function wpbac_admin_cars() {

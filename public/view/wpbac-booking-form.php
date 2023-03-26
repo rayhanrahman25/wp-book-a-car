@@ -4,10 +4,8 @@
 			<div class="container">
 				<div class="row">
 					<div class="booking-form">
-						<!-- <div class="form-header">
-							<h1><?php // echo esc_html(get_option( 'wpbac_form_title', WPBAC_TXT_DOMAIN )); ?></h1>
-						</div> -->
-						<form>
+						
+						<form id="booking-form">
 							<div class="row">
 								<div class="col-sm-6">
 									<div class="form-group">
