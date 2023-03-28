@@ -19,7 +19,7 @@ if ( !defined( 'ABSPATH' ) ) {
         $this->wpbac_trigger_admin_hooks();
         $this->wpbac_trigger_public_hooks();
         $this->wpbac_install_tables();
-        
+        $this->wpbac_cars_api();
     }
     
     // -- Load Plugin Text Domain
@@ -70,6 +70,10 @@ if ( !defined( 'ABSPATH' ) ) {
             require_once ABSPATH . 'wp-admin/includes/upgrade.php';
             dbDelta( $sql );
         }
+    }
+
+    private function wpbac_cars_api(){
+        require_once WPBAC_PATH . 'api/api.php';
     }
 
  }

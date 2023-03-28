@@ -67,7 +67,6 @@ class Wpbac_public{
                     'email' => sanitize_text_field( $_POST['wpbac_email'] )
                 ]
             ]);
-            echo "Hello";
             // User Booking Data
             $wpbac_user_data = array(
             'wpbac_user_name'=> sanitize_text_field( $_POST['wpbac_name'] ),
@@ -98,7 +97,7 @@ class Wpbac_public{
             // insert booking data
                 $wpdb->insert( WPBAC_TABLE , $wpbac_user_data );
                 $wpbac_response = array(
-                    'success' => false,
+                    'success' => true,
                     'message' => 'Thank you for booking with us!',
                 );
                 wp_send_json( $wpbac_response );  
