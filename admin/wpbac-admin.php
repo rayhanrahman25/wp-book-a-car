@@ -48,6 +48,7 @@ class Wpbac_admin{
         }
         wp_register_script( 'wpbac-main-js', WPBAC_ASSETS . 'admin/js/main.js', array('jquery'), WPBAC_VERSION, true );
         wp_register_script( 'wpbac-bootstrap-js', '//cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js', array(), '1.0.0', true );
+        wp_enqueue_media();
         wp_enqueue_script('wpbac-bootstrap-js');
         wp_enqueue_script('wpbac-main-js');
     }
