@@ -8,7 +8,7 @@ if ( !defined( 'ABSPATH' ) ) {
  *	Public Main
  */
 
-class Wpbac_public{
+class Wpbac_public {
 
     private $wpbac_version;
 
@@ -51,21 +51,37 @@ class Wpbac_public{
         require_once WPBAC_PATH . 'vendor/autoload.php';
         // instantiate $wpdb global variable store data in database
         global $wpdb;
+        $table_name = WPBAC_TABLE;
+        $date = sanitize_text_field( $_POST['wpbac_pickup_date'] );
+        //Prepare and execute the query
+        $pickup_date_query = $wpdb->prepare("SELECT COUNT(*) FROM $table_name WHERE wpbac_pickup_date = %s AND wpbac_car_id = %d", $date, $_POST['wpbac_car_id'] );
+        $pickup_date = $wpdb->get_var( $pickup_date_query);
+        $args = array(
+            'post_type' => 'page',
+            'post_status' => 'publish',
+            'posts_per_page' => 1,
+            'title' => 'WPBAC Thank You'
+        );
+        $page_query = new WP_Query( $args );
+        $page = $page_query->posts[0];
+
+        if($pickup_date >= 1) {
+            $wpbac_response = array(
+                'date_exist' => true,
+                'message' => 'Date already booked please select another date',
+            ); 
+            wp_send_json( $wpbac_response );
+            wp_die();
+        }else{
         // Including Stripe Payment Gateway And Submit Payment
         $amout = get_post_meta( sanitize_text_field( $_POST['wpbac_car_id']) , 'wpbac_car_rent_price_field', true );
-        $stripe_token = $_POST['stripe_token'];
         \Stripe\Stripe::setApiKey(get_option( 'wpbac_secret_key' ));
         try {
-            \Stripe\Charge::create([
+            \Stripe\PaymentIntent::create([
                 'amount' => $amout,
                 'currency' => 'usd',
-                'description' => 'For car rent',
-                'source' => $stripe_token,
-                'receipt_email' =>sanitize_text_field( $_POST['wpbac_email'] ), 
-                'metadata' => [
-                    'name' => sanitize_text_field( $_POST['wpbac_name'] ),
-                    'email' => sanitize_text_field( $_POST['wpbac_email'] )
-                ]
+                'payment_method' => 'pm_card_visa',
+                'confirm' => true,
             ]);
             // User Booking Data
             $wpbac_user_data = array(
@@ -80,38 +96,32 @@ class Wpbac_public{
             'wpbac_am_pm'=> sanitize_text_field( $_POST['wpbac_ap'] ),
             'wpbac_car_id'=> sanitize_text_field( $_POST['wpbac_car_id'] ),
             );
-            $table_name = WPBAC_TABLE;
-            $date = sanitize_text_field( $_POST['wpbac_pickup_date'] );
-            //Prepare and execute the query
-            $pickup_date_query = $wpdb->prepare("SELECT COUNT(*) FROM $table_name WHERE wpbac_pickup_date = %s", $date);
-            $pickup_date = $wpdb->get_var( $pickup_date_query);
-
-            if($pickup_date >= 1) {
-                $wpbac_response = array(
-                    'date_exist' => true,
-                    'message' => 'Date already booked please select another date',
-                ); 
-                wp_send_json( $wpbac_response );  
-                wp_die();
-            }else{
+            
             // insert booking data
                 $wpdb->insert( WPBAC_TABLE , $wpbac_user_data );
                 $wpbac_response = array(
                     'success' => true,
                     'message' => 'Thank you for booking with us!',
                 );
-                wp_send_json( $wpbac_response );  
+                $to = $_POST['wpbac_email'];
+                $subject = 'Booking Confirmation';
+                $body = 'Dear User '.$_POST['wpbac_name'].',<br><br>Thank you for your booking. We look forward to seeing you on the day of your event.<br><br>Regards,<br>Your Company Name';
+                $headers = array('Content-Type: text/html; charset=UTF-8');
+                wp_mail($to, $subject, $body, $headers);
+                wp_send_json( $wpbac_response);
                 wp_die();
-            }
+                
+
           } catch (\Stripe\Exception\CardException $e) {
             $wpbac_response = array(
                 'payment_filed' => true,
                 'message' => 'Payment Failed',
             ); 
+           
             wp_send_json( $wpbac_response );  
             wp_die();
           }
-        
-    }
 
+    }
+ }
 }

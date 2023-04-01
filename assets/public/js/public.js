@@ -38,14 +38,14 @@ jQuery(document).ready( function($) {
    $(".wpbac-submit-book").click( function(e) {
    e.preventDefault();
   
-   stripe.createToken(cardElement).then(function(result) {
+    stripe.createToken(cardElement).then(function(result) {
       if (result.error) {
          // Inform the user if there was an error.
          var errorElement = document.getElementById('card-errors');
-         errorElement.innerHTML = result.error;
+         errorElement.innerHTML = result.error.message;
+         return;
       }
-      stripeTokenHandler(result.token);
-      let stripeToken = $('#stripetoken').val();
+      
       let wpbacName = $('.wpbac-book-name').val();
       let wpbacCarId = $('.wpbac-car-id').val();
       let wpbacEmail = $('.wpbac-book-email').val();
@@ -65,7 +65,7 @@ jQuery(document).ready( function($) {
      
       if('' !== wpbacName && '' !== wpbacEmail && '' !== wpbacPhone && 
       '' !== wpbacPickup && '' !== wpbacDestination && '' !== wpbacPickupDate && 
-      '' !== wpbacHour && '' !== wpbacMin && '' !== wpbacAP) {
+      '' !== wpbacHour && '' !== wpbacMin && '' !== wpbacAP ) {
       
       if(!isValidEmail(wpbacEmail)) {
          $(".wpbac-message-wrapper").css("display","block");
@@ -79,7 +79,6 @@ jQuery(document).ready( function($) {
          url : wpbac_public.ajaxurl,
          data : {
             action: "user_booked_data",
-            stripe_token: stripeToken,
             wpbac_name : wpbacName,
             wpbac_email : wpbacEmail,
             wpbac_phone : wpbacPhone,
@@ -97,35 +96,33 @@ jQuery(document).ready( function($) {
             $(".wpbac-submit-message").html(response.message);
             setTimeout(function(){
                location.reload();
-         }, 1000); 
+            }, 1000); 
          }else if(response.date_exist){
+            if(!result.error){
+            document.getElementById('card-errors').innerHTML = "";
             $(".wpbac-message-wrapper").css("display","block");
             $(".wpbac-submit-message").html(response.message);
+            }
          }else{
+            if(!result.error){
+            document.getElementById('card-errors').innerHTML = "";
             $(".wpbac-message-wrapper").css("display","block");
             $(".wpbac-submit-message").html("Something Went Wrong");
+            }
          }
          }
       });
       }else{
+         if(!result.error){
+         document.getElementById('card-errors').innerHTML = "";
          $(".wpbac-message-wrapper").css("display","block");
          $(".wpbac-submit-message").html("Please fill all fields");
+         }
       }
      
    });
 
    });
-
-//Submit the form with the token ID.
-function stripeTokenHandler(token) {
-  var form = document.querySelector('#booking-form');
-  var hiddenInput = document.createElement('input');
-  hiddenInput.setAttribute('type', 'hidden');
-  hiddenInput.setAttribute('name', 'stripeToken');
-  hiddenInput.setAttribute('id','stripetoken');
-  hiddenInput.setAttribute('value', token.id);
-  form.appendChild(hiddenInput);
-}
  
 });
 

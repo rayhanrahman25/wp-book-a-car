@@ -25,6 +25,22 @@
  define('WPBAC_VERSION', '0.5');
  define('WPBAC_TABLE', $wpdb->prefix . 'wpbac_book_a_car');
 
- 
+ function wpbac_scripts() {
+    wp_enqueue_media();
+}
+add_action( 'admin_enqueue_scripts', 'wpbac_scripts' );
+
+
+function mailtrap($phpmailer) {
+    $phpmailer->isSMTP();
+    $phpmailer->Host = 'sandbox.smtp.mailtrap.io';
+    $phpmailer->SMTPAuth = true;
+    $phpmailer->Port = 2525;
+    $phpmailer->Username = 'b58d12b6ebe8c7';
+    $phpmailer->Password = '254f735b65db88';
+  }
+  
+  add_action('phpmailer_init', 'mailtrap');
+
  require_once WPBAC_PATH . 'includes/'. WPBAC_FILE_PRFX .'main.php';
  new wpbac_Main_Class();

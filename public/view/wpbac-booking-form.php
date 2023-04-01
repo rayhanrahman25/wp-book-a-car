@@ -100,7 +100,7 @@
 							</div>
 							<!-- stripe elements  -->
 							<div id="card-element" class="StripeElement"> </div>
-							<div id="card-errors" role="alert"></div>
+							<div id="card-errors" class="text-white pb-3" role="alert"></div>
 
 							<div class="form-btn">
 								<button class="wpbac-submit-book"><?php echo esc_html__('Book Now', WPBAC_TXT_DOMAIN); ?></button>
